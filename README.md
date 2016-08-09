@@ -1,6 +1,6 @@
 # Locations
 
-That program can calculate the distance between two locations [defined by coordinates-lon+lat-] (one given by user + a lot which can be read from a CSV file).
+That program can calculate the distance between two locations (defined by coordinates-lon+lat-) (one given by user + a lot which can be read from a CSV file).
 It's based on the haversine formula.
 https://en.wikipedia.org/wiki/Haversine_formula
 
