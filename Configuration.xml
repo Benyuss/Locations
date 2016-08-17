@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace" monitorInterval="60">
+
+	<Appenders>
+		<Console name="STDOUT">
+			<PatternLayout pattern="%d %p %c{1.} [%t] %m%n" />
+		</Console>
+
+<!-- 		<File name="file" fileName="${filename}"> -->
+<!-- 			<PatternLayout> -->
+<!-- 				<pattern>%d %p %c{1.} [%t] %m%n</pattern> -->
+<!-- 			</PatternLayout> -->
+<!-- 		</File> -->
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.mycompany.myproduct" level="debug"
+			additivity="true">
+			<ThreadContextMapFilter>
+				<KeyValuePair key="test" value="123" />
+			</ThreadContextMapFilter>
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+
+		<!-- By default, all log messages of level "trace" or higher will be logged. 
+			Log messages are sent to the "file" appender and log messages of level "error" 
+			and higher will be sent to the "STDOUT" appender. -->
+		<Root level="trace">
+<!-- 			<AppenderRef ref="file" /> -->
+			<AppenderRef ref="STDOUT" level="trace" />
+		</Root>
+	</Loggers>
+
+</Configuration>
