@@ -8,6 +8,4 @@ Program can generate geohash of these locations.
 Every location (including the one which given by user) has a radius too.
 It's used to know the user-given location is including the ones from the file or not(including these radius of course).
 
-I'll look at Geohash method in the future because at the moment it's implementation is poor.
-
 I'm a beginner Java-dev, it's just a training code.
