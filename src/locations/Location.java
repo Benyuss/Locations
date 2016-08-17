@@ -1,5 +1,3 @@
-package locations;
-
 public class Location {
 //Location class which is used to instantiation	Location objects. Printing is disabled. Look at line 253 for further info.
 	

@@ -1,5 +1,3 @@
-package locations;
-
 import java.util.Scanner;
 import java.io.FileReader;
 import com.opencsv.*;
@@ -165,7 +163,7 @@ class LocationTester {
 			}*/
 			String hash = null;
 			BitSetBuilder geo1 = new BitSetBuilder(lat2,lon2,rad2);
-			BitSet bits = geo1.createBitset();
+			boolean[] bits = geo1.createBitset();
 			Geohash geo = new Geohash(bits);
 			geo.exchangeValue();
 				

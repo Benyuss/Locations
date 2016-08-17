@@ -1,5 +1,3 @@
-package locations;
-
 public final class HaversineCalculator {
 //Calculates the Haversine Formula. Look at https://en.wikipedia.org/wiki/Haversine_formula for more info.
 	public static final double R = 6371.3;

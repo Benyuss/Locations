@@ -1,64 +1,64 @@
-package locations;
-
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.Map;
-
 class Geohash {
 	
-	BitSet bitSet;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((geoHash == null) ? 0 : geoHash.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Geohash other = (Geohash) obj;
+		if (geoHash == null) {
+			if (other.geoHash != null)
+				return false;
+		} else if (!geoHash.equals(other.geoHash))
+			return false;
+		return true;
+	}
+
+	boolean[] bitSet;
 	
-	public Geohash (BitSet bits) {
+	public Geohash (boolean[] bits) {
 		this.bitSet = bits;
 	}
 	
 	private String geoHash;
 	
-	private enum Base32 {
-		A(0), B(1), C(2), D(3), E(4), F(5), G(6), H(7), I(8), J(9), K(10), L(11),
-		M(12), N(13), O(14), P(15), Q(16), R(17), S(18), T(19), U(20), V(21), W(22),
-		X(23), Y(24), Z(25), _2(26), _3(27), _4(28), _5(29), _6(30), _7(31); 
+	static class Base32 {
+		private static String stringBase = "0123456789bcdefghjkmnpqrstuvwxyz";
+		private static char Base32array[] = stringBase.toCharArray();
 		
-		private static final Map<Integer, Base32> terkep = new HashMap<Integer, Base32>();
-		  static {
-		    for (Base32 base : values()) {
-		      terkep.put(base.getValue(), base);
-		    }
-		  }
-		
-		private int value;
-		
-		private Base32(int value) {
-		      this.value = value;
+		public static char getBase (int x) {
+			return Base32array[x];
 		}
-		
-		public int getValue() {
-			return value;
-		}
-		
-		public static Base32 getByValue(int value) {
-		    return terkep.get(value);
-		  }
-
-		  public String toString() {
-		    return name();
-		  }			
+	
 	}
 	
 	public void exchangeValue () {
 		double values [] = new double[5];
-		String hash = null;
 		int it = 0;
-		for (int i = 0; i < BitSetBuilder.getArrayLength();) {
-			while (it != 5) {
-				if (bitSet.get(i) == true) {
-					values[it] = Math.pow(2, it);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < BitSetBuilder.getArrayLength() ;) {
+			while (it < 5) {
+				if (bitSet[i] == true) {
+					values[it] = Math.pow(2, 4-it);
+					System.out.println("true\t" + values[it]);
 				}
 				else {
 					values[it] = 0;
+					System.out.println("false\t" + values[it]);
 				}
 				it++;
-				i++;
+				i++;//u2wc9m4j u2wc8uz9
 			}
 			int finalValue = 0;
 			
@@ -66,11 +66,11 @@ class Geohash {
 				finalValue += asd;
 			}
 			it = 0;
-			Base32 base = Base32.getByValue(finalValue);
-			hash = String.valueOf(base);
-			geoHash = hash;
-			System.out.print(geoHash);
+			char base = Base32.getBase(finalValue);
+			sb.append(base);
 		}
+		geoHash = sb.toString();
+		System.out.println(geoHash);
 	}
 	
 	public String getGeoHash() {
