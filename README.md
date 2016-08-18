@@ -7,8 +7,6 @@ https://en.wikipedia.org/wiki/Haversine_formula
 Program can generate geohash of these locations.
 Every location (including the one which given by user) has a radius too.
 It's used to know the user-given location is including the ones from the file or not(including these radius of course).
-It may calculate Geohash of every GeoLocation.
-
-Start the process with localhost:8080/geohash from your browser (after start the server).
+Every data will be sent out into HTML tables (trough JSP) which can be accessible at localhost:8080/geohash
 
 I'm a beginner Java-dev, it's just a training code.

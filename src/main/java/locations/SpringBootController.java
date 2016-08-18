@@ -37,20 +37,13 @@ class SpringBootController implements InitLogger {
 	}	
 
 	
-	@RequestMapping(value = "/geohash", method = RequestMethod.GET)
-	@ResponseBody
-	public String geoHash() {
-		LocationExecute.calculate();
-		return LocationExecute.getNabstring();
-	}
-	
 	@RequestMapping(value = "/")
     @ResponseBody
     String home() {
         return "Hello World!";
     }
 	
-	@RequestMapping("/test")
+	@RequestMapping("/geohash")
 	  public String test() {
 		return "test";
 	  }
