@@ -10,20 +10,25 @@
 </head>
 <body>
 	<table style="width: 100%" border="1">
-
-<%
+	<tr>
+	<th> Latitude </th> <th> Longitude </th> <th> Radius </th> <th> Geohash </th> <th> Contains </th> <th> Distance </th>
+	</tr>
+<%	
 	LocationExecute.calculate();
-	ArrayList<String> hash = LocationExecute.getList();
-	String temp; %>
-<!-- 	<tr><td> -->
-	<%
-    for(int i = 0; i < hash.size(); i++){ 
-   	 	temp = hash.get(i); %>
-    	
-    <% 
-        out.println(temp); }
-    %>	
-<!--     </td></tr> -->
+	ArrayList<Tuple> tupleList = LocationExecute.getTupleList();
+	for (int i = 1; i < tupleList.size(); i++) {
+		%>
+		<tr>
+			<td><%out.println(tupleList.get(i).getFirstCoord()); %></td>
+			<td><%out.println(tupleList.get(i).getSecondCoord()); %></td>
+			<td><%out.println(tupleList.get(i).getRadius()); %></td>
+			<td><%out.println(tupleList.get(i).getGeoHash()); %></td>
+			<td><%out.println(tupleList.get(i).getContains()); %></td>
+			<td><%out.println(tupleList.get(i).getDistance()); %></td>
+		</tr>
+		<%
+	}
+%>	
 	</table>
 </body>
 </html>

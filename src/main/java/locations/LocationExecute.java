@@ -106,44 +106,6 @@ final class CSVscanner {
     }	
 }
 
-final class Tuple {
-//Pairs 2 coordinates with a radius. Use it to keep the data together from csv files. 
-	
-    @Override
-	public String toString() {
-		return "Tuple [firstCoordinate=" + firstCoordinate + ", secondCoordinate=" + secondCoordinate + ", radius="
-				+ radius + "]";
-	}
-
-	private Double firstCoordinate;
-    private Double secondCoordinate;
-    private int radius;
-
-	public Double getFirstCoord() {
-    	return firstCoordinate;	
-    }
-    
-    public Double getSecondCoord() {
-    	return secondCoordinate;
-    }
-    
-    public void setFirstCoord( double cord ) {
-    	firstCoordinate = cord;
-    }
-    
-    public void setSecondCoord( double cord ) {
-    	secondCoordinate = cord;
-    }
-
-	public int getRadius() {
-		return radius;
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
-	}
-}
-
 public class LocationExecute {
 	
 	private static Logger logger = null;
@@ -170,15 +132,19 @@ public class LocationExecute {
 
 	private static Geohash geo = null;
 	private static BitSetBuilder geo1 = null;
-	private static ArrayList<String> hashList;
+	private static ArrayList<Tuple> tupleList;
 	
+	public static ArrayList<Tuple> getTupleList() {
+		return tupleList;
+	}
+
 	public static void calculate() {
+		
+		tupleList = new ArrayList<Tuple>();
 		
 		try {
 			CSVscanner.scan();
 		}catch (Exception e) {};
-		
-		hashList = new ArrayList<String>();
 		
 		GetData data = new GetData();
 		double lat1 = data.setLat1();
@@ -188,12 +154,9 @@ public class LocationExecute {
 		boolean[] bits1 = geo1.createBitset();
 		geo = new Geohash(bits1);
 		geo.exchangeValue();
+		tupleList.add(new Tuple(lat1, lon1, rad1, geo.getGeoHash()));
+		
 		logger.log(Level.DEBUG, "Got the following data (super)->  Lat: " + lat1 + " Lon: " + lon1);
-		nabstring.append("<br>:: Hash of SUPER: " + lat1 + "  (lat)\t" + lon1 +"  (lon)  is :: " 
-				+ geo.getGeoHash() + "<br><br>");
-		hashList.add(0, "<tr><th colspan=\"3\">" + "Hash of SUPER: " + lat1 + "  (lat)\t" + lon1 +"  (lon)  is :: " 
-				+ geo.getGeoHash() + "</tr></th>");
-		String tempString;
 		
 		for (int i = 0; i < CSVscanner.getLastIndex(); i++) {
 			int k = 1;
@@ -211,28 +174,10 @@ public class LocationExecute {
 			boolean[] bits2 = geo1.createBitset ();
 			geo = new Geohash(bits2);
 			geo.exchangeValue();
-			tempString = "Hash of: " + lat2 + "  (lat) " + lon2 +"  (lon) is:  " + geo.getGeoHash();
-			nabstring.append(tempString);
-			hashList.add(k, "<tr><td>" + tempString + "</td>");
-			k++;
-			logger.log(Level.DEBUG, " Geohash is: " + geo.getGeoHash());
-			
-			tempString = "SUPER is " + loc1.isContains(loc2) + " that location. ";
-			nabstring.append(tempString);
-			hashList.add(k, "<td>" + tempString + "</td>");
-			k++;
-			
-			tempString = "Distance between SUPER and that location(in kilometers): " + loc1.distanceTo(loc2);
-			nabstring.append(tempString);
-			hashList.add(k, ("<td>" + tempString + "</td></tr>"));
-			k++;
+			tupleList.add(new Tuple(lat2, lon2, rad2, geo.getGeoHash(), loc1.isContains(loc2), loc1.distanceTo(loc2)));
 			
 			logger.log(Level.DEBUG, "SUPER is " + loc1.isContains(loc2) + " that location." );
 			logger.log(Level.DEBUG, "Distance between SUPER and that location (in kilometers): " + loc1.distanceTo(loc2) );
 		}
-	}
-	
-	public static ArrayList<String> getList () {
-		return hashList;
 	}
 }
