@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="trace" monitorInterval="60">
+<Configuration status="debug" monitorInterval="60">
 
 	<Appenders>
 		<Console name="STDOUT">
@@ -25,9 +25,9 @@
 		<!-- By default, all log messages of level "trace" or higher will be logged. 
 			Log messages are sent to the "file" appender and log messages of level "error" 
 			and higher will be sent to the "STDOUT" appender. -->
-		<Root level="trace">
+		<Root level="debug">
 <!-- 			<AppenderRef ref="file" /> -->
-			<AppenderRef ref="STDOUT" level="trace" />
+			<AppenderRef ref="STDOUT" level="debug" />
 		</Root>
 	</Loggers>
 

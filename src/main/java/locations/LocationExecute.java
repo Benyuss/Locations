@@ -144,7 +144,7 @@ final class Tuple {
 	}
 }
 
-class LocationExecute {
+public class LocationExecute {
 	
 	private static Logger logger = null;
 	static {
@@ -170,13 +170,15 @@ class LocationExecute {
 
 	private static Geohash geo = null;
 	private static BitSetBuilder geo1 = null;
+	private static ArrayList<String> hashList;
 	
 	public static void calculate() {
 		
 		try {
 			CSVscanner.scan();
 		}catch (Exception e) {};
-
+		
+		hashList = new ArrayList<String>();
 		
 		GetData data = new GetData();
 		double lat1 = data.setLat1();
@@ -189,9 +191,12 @@ class LocationExecute {
 		logger.log(Level.DEBUG, "Got the following data (super)->  Lat: " + lat1 + " Lon: " + lon1);
 		nabstring.append("<br>:: Hash of SUPER: " + lat1 + "  (lat)\t" + lon1 +"  (lon)  is :: " 
 				+ geo.getGeoHash() + "<br><br>");
-
+		hashList.add(0, "<tr><th colspan=\"3\">" + "Hash of SUPER: " + lat1 + "  (lat)\t" + lon1 +"  (lon)  is :: " 
+				+ geo.getGeoHash() + "</tr></th>");
+		String tempString;
 		
 		for (int i = 0; i < CSVscanner.getLastIndex(); i++) {
+			int k = 1;
 			logger.log(Level.INFO, ":::::::::: NEW TREE ::::::::::");
 			logger.log(Level.INFO, "SUPER is still ->  Lat: " + lat1 + " Lon: " + lon1+ " with " + rad1 + " meter radius");
 			Tuple pair2 = CSVscanner.container.get(i);
@@ -206,13 +211,28 @@ class LocationExecute {
 			boolean[] bits2 = geo1.createBitset ();
 			geo = new Geohash(bits2);
 			geo.exchangeValue();
-			nabstring.append(":: Hash of: " + lat2 + "  (lat) " + lon2 +"  (lon) is:  " 
-							+ geo.getGeoHash());
-			logger.log(Level.DEBUG, "Geohash is: " + geo.getGeoHash());
-			nabstring.append(" :: SUPER is " + loc1.isContains(loc2) + " that location."  + " ");
-			nabstring.append(":: Distance between SUPER and that location(in kilometers): " + loc1.distanceTo(loc2) + "<br>");
+			tempString = "Hash of: " + lat2 + "  (lat) " + lon2 +"  (lon) is:  " + geo.getGeoHash();
+			nabstring.append(tempString);
+			hashList.add(k, "<tr><td>" + tempString + "</td>");
+			k++;
+			logger.log(Level.DEBUG, " Geohash is: " + geo.getGeoHash());
+			
+			tempString = "SUPER is " + loc1.isContains(loc2) + " that location. ";
+			nabstring.append(tempString);
+			hashList.add(k, "<td>" + tempString + "</td>");
+			k++;
+			
+			tempString = "Distance between SUPER and that location(in kilometers): " + loc1.distanceTo(loc2);
+			nabstring.append(tempString);
+			hashList.add(k, ("<td>" + tempString + "</td></tr>"));
+			k++;
+			
 			logger.log(Level.DEBUG, "SUPER is " + loc1.isContains(loc2) + " that location." );
 			logger.log(Level.DEBUG, "Distance between SUPER and that location (in kilometers): " + loc1.distanceTo(loc2) );
 		}
+	}
+	
+	public static ArrayList<String> getList () {
+		return hashList;
 	}
 }
