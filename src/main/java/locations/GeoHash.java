@@ -97,7 +97,6 @@ class Geohash {
 			sb.append(base);
 		}
 		geoHash = sb.toString();
-		logger.log(Level.DEBUG, "Geohash is: " + getGeoHash());
 	}
 	
 	public String getGeoHash() {

@@ -38,9 +38,6 @@ public class Location {
 	public double distanceTo (Location loc) {
 		HaversineCalculator hav = new HaversineCalculator();
 		double	distanceValue = hav.haversineValue(this.lat, this.lon, loc.lat, loc.lon);
-		logger.log(Level.DEBUG, this.lat +" " + this.lon + " with rad: " + this.rad + "\t" + loc.lat +
-				" " + loc.lon + " with rad: " + loc.rad);
-		logger.log(Level.DEBUG, "value of distance is: " + distanceValue);
 		return distanceValue;
 				
 	}
@@ -53,15 +50,12 @@ public class Location {
 		double distanceValue = this.distanceTo(loc);
 		double value = distanceValue + loc.rad ;
 		if (value < this.rad) {
-			logger.log(Level.DEBUG, Contains.CONTAINS);
 			return Contains.CONTAINS;
 		}
 		else if (value > this.rad) {
-			logger.log(Level.DEBUG, Contains.NOT_CONTAINS);
 			return Contains.NOT_CONTAINS;
 		}
 		else {
-			logger.log(Level.DEBUG, Contains.SEMI_CONTAINS);
 			return Contains.SEMI_CONTAINS;
 		}	
 	}

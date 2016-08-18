@@ -12,8 +12,6 @@ import java.io.IOException;
 import com.opencsv.*;
 
 import java.util.ArrayList;
-import java.util.BitSet;
-
 
 class GetData {
 //Can get user input from console. The 2 inactive methods "setLat2 and setLon2" are used to compare 2 locations given by user.
@@ -184,36 +182,37 @@ class LocationExecute {
 		double lat1 = data.setLat1();
 		double lon1 = data.setLon1();
 		int rad1 = data.setRad1();
-		//double lat2 = data.setLat2();
-		//double lon2 = data.setLon2();
-//		logger.log(Level.DEBUG, "firstlog");
+		geo1 = new BitSetBuilder(lat1,lon1,rad1);
+		boolean[] bits1 = geo1.createBitset();
+		geo = new Geohash(bits1);
+		geo.exchangeValue();
+		logger.log(Level.DEBUG, "Got the following data (super)->  Lat: " + lat1 + " Lon: " + lon1);
+		nabstring.append("<br>:: Hash of SUPER: " + lat1 + "  (lat)\t" + lon1 +"  (lon)  is :: " 
+				+ geo.getGeoHash() + "<br><br>");
 
-		for(int i = 0; i < CSVscanner.getLastIndex(); i++) {
-			
-			//Pair pair = CSVscanner.container.get(i);
-			//double lat1 = pair.getFirstCoord();
-			//double lon1 = pair.getSecondCoord();
-
+		
+		for (int i = 0; i < CSVscanner.getLastIndex(); i++) {
+			logger.log(Level.INFO, ":::::::::: NEW TREE ::::::::::");
+			logger.log(Level.INFO, "SUPER is still ->  Lat: " + lat1 + " Lon: " + lon1+ " with " + rad1 + " meter radius");
 			Tuple pair2 = CSVscanner.container.get(i);
 			double lat2 = pair2.getFirstCoord();
 			double lon2 = pair2.getSecondCoord();
 			int rad2 = pair2.getRadius();
-			logger.log(Level.DEBUG, "Got the following data ->  Lat: " + lat2 + "\tLon: " + lon2);
+			logger.log(Level.DEBUG, "Got the following data ->  Lat: " + lat2 + " Lon: " + lon2 + " with " + rad2 + " meter radius");
 			Location loc1 = new Location(lat1, lon1, rad1);
 			Location loc2 = new Location(lat2, lon2, rad2);
 			
-//			logger.log(Level.DEBUG, loc1.isContains(loc2));
-			
 			geo1 = new BitSetBuilder(lat2,lon2,rad2);
-			boolean[] bits = geo1.createBitset();
-			geo = new Geohash(bits);
+			boolean[] bits2 = geo1.createBitset ();
+			geo = new Geohash(bits2);
 			geo.exchangeValue();
-			nabstring.append("Hash of: " + lat2 + "  (lat)\t" + lon2 +"  (lon)\t is :: " 
-							+ geo.getGeoHash() + "<br>");
-//			logger.log(Level.DEBUG, geo.getGeoHash());
-			//Geohash geo2 = new Geohash(lat2, lon2, rad2);
-				//geo2.createBitset();
+			nabstring.append(":: Hash of: " + lat2 + "  (lat) " + lon2 +"  (lon) is:  " 
+							+ geo.getGeoHash());
+			logger.log(Level.DEBUG, "Geohash is: " + geo.getGeoHash());
+			nabstring.append(" :: SUPER is " + loc1.isContains(loc2) + " that location."  + " ");
+			nabstring.append(":: Distance between SUPER and that location(in kilometers): " + loc1.distanceTo(loc2) + "<br>");
+			logger.log(Level.DEBUG, "SUPER is " + loc1.isContains(loc2) + " that location." );
+			logger.log(Level.DEBUG, "Distance between SUPER and that location (in kilometers): " + loc1.distanceTo(loc2) );
 		}
-		//CSVscanner.testScanner();
 	}
 }

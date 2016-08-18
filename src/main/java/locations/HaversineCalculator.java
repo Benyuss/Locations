@@ -29,9 +29,9 @@ public final class HaversineCalculator {
 	
 	public double haversineValue (double lat1, double lon1, double lat2, double lon2) {
 		
-		logger.log(Level.DEBUG, "Haversine calculator got the following data -> " +
-					"Lat of first: " + lat1 + " Lon of first: " + lon1 +
-					" Lat of second: " + lat2 + " Lon of second: " + lon2);
+//		logger.log(Level.DEBUG, "Haversine calculator got the following data -> " +
+//					"Lat of first: " + lat1 + " Lon of first: " + lon1 +
+//					" Lat of second: " + lat2 + " Lon of second: " + lon2);
 		
 		double latDistance = Math.toRadians( lat2 - lat1 );
 		double lonDistance = Math.toRadians( lon2 - lon1 );
@@ -42,7 +42,7 @@ public final class HaversineCalculator {
 
 		double c = 2d * Math.atan2(Math.sqrt(a), Math.sqrt(1d-a));
 		
-		logger.log(Level.DEBUG, "HaversineValue is: " + R * c);
+//		logger.log(Level.DEBUG, "Distance between them is: " + R * c + " kilometers.");
 		return R * c;
 	}
 }
