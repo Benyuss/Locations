@@ -1,6 +1,7 @@
 package locations;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.stereotype.*;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,11 +45,15 @@ class SpringBootController implements InitLogger {
         return "Hello World!";
     }
 	
-	@RequestMapping("/geohash")
-	  public String test() {
-		return "test";
-	  }
-	
+	@GetMapping("/geohash")
+	public String welcome(ModelMap model) {
+		LocationExecute.calculate();
+		ArrayList<Tuple> tupleList = LocationExecute.getTupleList();
+		model.addAttribute("geoItemList", tupleList);
+		model.addAttribute("listSize", tupleList.size());
+		return "Geohash";
+	}
+
 	
     public static void main (String args[]) throws Exception {
         SpringApplication.run(SpringBootController.class, args);
@@ -55,6 +61,7 @@ class SpringBootController implements InitLogger {
     
 //    public void setLat (double latitude) {
 //    	lat = latitude;
+//    for (int i = 1; i < tupleasd.size(); i++) {
 //    }
 //    
 //    public double getLat () {

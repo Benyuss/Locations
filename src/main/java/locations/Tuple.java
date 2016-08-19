@@ -49,19 +49,19 @@ public final class Tuple {
 		return geoHash;
 	}
 
-	public Double getFirstCoord() {
+	public Double getFirstCoordinate() {
 		return firstCoordinate;
 	}
 
-	public Double getSecondCoord() {
+	public Double getSecondCoordinate() {
 		return secondCoordinate;
 	}
 
-	public void setFirstCoord(double cord) {
+	public void setFirstCoordinate(double cord) {
 		firstCoordinate = cord;
 	}
 
-	public void setSecondCoord(double cord) {
+	public void setSecondCoordinate(double cord) {
 		secondCoordinate = cord;
 	}
 

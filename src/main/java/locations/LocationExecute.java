@@ -89,8 +89,8 @@ final class CSVscanner {
 		
 		while ((coordinates = scanner.readNext()) != null) {
 			Tuple tuple = new Tuple();
-			tuple.setFirstCoord(Double.parseDouble(coordinates[0]));
-			tuple.setSecondCoord(Double.parseDouble(coordinates[1]));
+			tuple.setFirstCoordinate(Double.parseDouble(coordinates[0]));
+			tuple.setSecondCoordinate(Double.parseDouble(coordinates[1]));
 			tuple.setRadius(Integer.parseInt(coordinates[2]));
 			container.add(tuple);
 			lastIndex = container.size();
@@ -163,8 +163,8 @@ public class LocationExecute {
 			logger.log(Level.INFO, ":::::::::: NEW TREE ::::::::::");
 			logger.log(Level.INFO, "SUPER is still ->  Lat: " + lat1 + " Lon: " + lon1+ " with " + rad1 + " meter radius");
 			Tuple pair2 = CSVscanner.container.get(i);
-			double lat2 = pair2.getFirstCoord();
-			double lon2 = pair2.getSecondCoord();
+			double lat2 = pair2.getFirstCoordinate();
+			double lon2 = pair2.getSecondCoordinate();
 			int rad2 = pair2.getRadius();
 			logger.log(Level.DEBUG, "Got the following data ->  Lat: " + lat2 + " Lon: " + lon2 + " with " + rad2 + " meter radius");
 			Location loc1 = new Location(lat1, lon1, rad1);
