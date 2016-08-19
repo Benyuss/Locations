@@ -18,8 +18,8 @@
 		<tr>
 			<td> <c:out value="${geoItem.firstCoordinate}"/> </td>
 			<td> <c:out value="${geoItem.secondCoordinate}"/> </td>
-			<td> <c:out value="${geoItem.geoHash}"/> </td>
 			<td> <c:out value="${geoItem.radius}"/> </td>
+			<td> <c:out value="${geoItem.geoHash}"/> </td>
 			<td> <c:out value="${geoItem.contains}"/> </td>
 			<td> <c:out value="${geoItem.distance}"/> </td>
 		</tr>

@@ -37,43 +37,27 @@ class SpringBootController implements InitLogger {
 		
 		logger = InitLogger.logger[0];
 	}	
-
-	
-	@RequestMapping(value = "/")
-    @ResponseBody
-    String home() {
-        return "Hello World!";
-    }
 	
 	@GetMapping("/geohash")
-	public String welcome(ModelMap model) {
+	public String getUserInput( ModelMap model) {
+		model.put("command", new Tuple());
+		return "UserInput";
+	}
+	
+	@PostMapping("/geohash")
+	public String printHash(@ModelAttribute("lofasz")Tuple tuple,ModelMap model) {
+		GetData.setLat1(tuple.getFirstCoordinate());
+		GetData.setLon1(tuple.getSecondCoordinate());
+		GetData.setRad1(tuple.getRadius());
+		
 		LocationExecute.calculate();
-		ArrayList<Tuple> tupleList = LocationExecute.getTupleList();
-		model.addAttribute("geoItemList", tupleList);
-		model.addAttribute("listSize", tupleList.size());
+		model.addAttribute("geoItemList", LocationExecute.getTupleList());
+		model.addAttribute("listSize", LocationExecute.getTupleList().size());
 		return "Geohash";
 	}
-
 	
     public static void main (String args[]) throws Exception {
         SpringApplication.run(SpringBootController.class, args);
     }
-    
-//    public void setLat (double latitude) {
-//    	lat = latitude;
-//    for (int i = 1; i < tupleasd.size(); i++) {
-//    }
-//    
-//    public double getLat () {
-//    	return lat;
-//    }
-//    
-//    public void setLon (double longitude) {
-//    	lon = longitude;
-//    }
-//    
-//    public double getLon () {
-//    	return lon;
-//    }
     
 }

@@ -70,6 +70,7 @@ public final class Tuple {
 	}
 
 	public void setRadius(int radius) {
+		if (radius > 0)
 		this.radius = radius;
 	}
 }

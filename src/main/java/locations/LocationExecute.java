@@ -13,47 +13,6 @@ import com.opencsv.*;
 
 import java.util.ArrayList;
 
-class GetData {
-//Can get user input from console. The 2 inactive methods "setLat2 and setLon2" are used to compare 2 locations given by user.
-//You can reactivate them but if you do, CSV input will make no sense.
-	
-	Scanner scanner = new Scanner(System.in);
-
-	public int setRad1() {
-   		//System.out.println("Enter the radius: ");
-   		return 6; //scanner.nextInt();
-	}
-
-	public double setLat1() {
-    	//System.out.println("Enter the first latitude: ");
-    	return 48.104564; //scanner.nextDouble(); 
-    }
-
-    public double setLon1() {
-	    //System.out.println("Enter the first longitude: ");
-	    return 20.800041; //scanner.nextDouble();
-	} 
-    /*
-    public double setLat2() {	
- 		System.out.println("Enter the second latitude: ");
- 		double lat2 = scanner.nextDouble();
-    	return lat2;
-    }
-
-	public double setLon2() {
-	    System.out.println("Enter the second longitude: ");
-	    double lon2 = scanner.nextDouble();
-	    return lon2;
-	}
-	
-	public int setRad2() {
-   		System.out.println("Enter the radius: ");
-   		int rad = scanner.nextInt();
-   		return rad;
-	}
-	*/ 
-}
-
 final class CSVscanner {
 //Scans CSV files until their last line. Saves data in Tuples (LOOk AT -> class Tuple- line 132) to ArrayList. 
 //You can test the class with CSVscanner.testScanner(); 
@@ -146,10 +105,9 @@ public class LocationExecute {
 			CSVscanner.scan();
 		}catch (Exception e) {};
 		
-		GetData data = new GetData();
-		double lat1 = data.setLat1();
-		double lon1 = data.setLon1();
-		int rad1 = data.setRad1();
+		double lat1 = GetData.getLat1();
+		double lon1 = GetData.getLon1();
+		int rad1 = GetData.getRad1();
 		geo1 = new BitSetBuilder(lat1,lon1,rad1);
 		boolean[] bits1 = geo1.createBitset();
 		geo = new Geohash(bits1);
