@@ -1,11 +1,40 @@
 package locations;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.Logger;
+
 public final class Tuple {
 	// Pairs 2 coordinates with a radius. Use it to keep the data together from
 	// csv files.
-
-	public Tuple() {
-
+	
+	private static Logger logger = null;
+	static {
+		
+		try {
+			InitLogger.initialize();
+		} catch (FileNotFoundException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		}
+		
+		logger = InitLogger.logger[0];
+	}
+	
+	
+	public Tuple () {
+		
+	}
+	
+	public Tuple(Double first, Double second, int radius) {
+		firstCoordinate = first;
+		secondCoordinate = second;
+		this.radius = radius;
 	}
 
 	public Tuple(Double first, Double second, int radius, String geohash) {
@@ -57,12 +86,24 @@ public final class Tuple {
 		return secondCoordinate;
 	}
 
-	public void setFirstCoordinate(double cord) {
-		firstCoordinate = cord;
+	public void setFirstCoordinate(double lat) {
+		if (lat > -90 && lat < 90) {
+    		firstCoordinate = lat;
+    	}
+    	else {
+			logger.log(Level.DEBUG, "got an illegal lat value: {}", lat);
+			throw new IllegalArgumentException(getClass() +"got an illegal lat value");
+		}
 	}
 
-	public void setSecondCoordinate(double cord) {
-		secondCoordinate = cord;
+	public void setSecondCoordinate(double lon) {
+		if (lon >= -180 && lon <= 180) {
+    		secondCoordinate = lon;
+    	}
+    	else {
+			logger.log(Level.DEBUG, "got an illegal lon value: {}", lon);
+			throw new IllegalArgumentException(getClass() +"got an illegal lon value");
+		}
 	}
 
 	public int getRadius() {
@@ -70,7 +111,12 @@ public final class Tuple {
 	}
 
 	public void setRadius(int radius) {
-		if (radius > 0)
-		this.radius = radius;
+		if (radius > 0) {
+			this.radius = radius;
+		}
+		else {
+			logger.log(Level.DEBUG, getClass() + " got a negative radius value: {}", radius);
+			throw new IllegalArgumentException(getClass() +"got an illegal rad value");
+		}
 	}
 }

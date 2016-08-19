@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="locations.*"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,11 +9,16 @@
 <title>Geohash calculator</title>
 </head>
 <body>
+<table align="center" class="center-div">
+
 	<form:form action="/geohash">
-		Latitude: <form:input type="number" step="any" path="firstCoordinate"/><br> 
-		Longitude: <form:input type="number" step="any" path="secondCoordinate"/><br>
-		Radius: <form:input type="number" step="any" path="radius"/><br> 
-		<input type="submit" value="Submit"/>
+	<tr> <th>Latitude:</th> <td><form:input type="number" step="any" path="firstCoordinate"/></td></tr>
+	<tr> <th>Longitude:</th> <td><form:input type="number" step="any" path="secondCoordinate"/></td></tr>
+	<tr> <th>Radius:</th> <td><form:input type="number" step="any" path="radius"/></td></tr> 
+	<tr> <td><input type="submit" name="Submit" value="Submit"/> </td> 
+		 <td> <input type="submit" name="SubmitWithDefault" value="Default Values"> </td> <tr>
+	
 	</form:form>
+</table>
 </body>
 </html>

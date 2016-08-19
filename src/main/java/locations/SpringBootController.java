@@ -38,14 +38,20 @@ class SpringBootController implements InitLogger {
 		logger = InitLogger.logger[0];
 	}	
 	
-	@GetMapping("/geohash")
-	public String getUserInput( ModelMap model) {
-		model.put("command", new Tuple());
+	@GetMapping(value="/geohash")
+	public String getUserInput(ModelMap model) {
+		    	model.put("command", new Tuple());
 		return "UserInput";
 	}
 	
-	@PostMapping("/geohash")
-	public String printHash(@ModelAttribute("lofasz")Tuple tuple,ModelMap model) {
+	@PostMapping(value="/geohash", params="SubmitWithDefault")
+	public String defaultUserInput(ModelMap model) {
+			model.put("command", tupleFill (48.104564, 20.800041, 6) );
+		return "UserInput";
+	}
+	
+	@PostMapping(value = "/geohash", params="Submit")
+	public String printHash(@ModelAttribute("user")Tuple tuple,ModelMap model) {
 		GetData.setLat1(tuple.getFirstCoordinate());
 		GetData.setLon1(tuple.getSecondCoordinate());
 		GetData.setRad1(tuple.getRadius());
@@ -58,6 +64,14 @@ class SpringBootController implements InitLogger {
 	
     public static void main (String args[]) throws Exception {
         SpringApplication.run(SpringBootController.class, args);
+    }
+    
+    private Tuple tupleFill (double lat, double lon, int rad) {
+    	Tuple tuple = new Tuple();
+		tuple.setFirstCoordinate(lat); 
+		tuple.setSecondCoordinate(lon);
+		tuple.setRadius(rad);
+		return tuple;
     }
     
 }

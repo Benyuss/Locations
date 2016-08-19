@@ -1,5 +1,11 @@
 package locations;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.Logger;
+
 //import java.util.Scanner;
 
 public final class GetData {
@@ -7,6 +13,22 @@ public final class GetData {
 	//You can reactivate them but if you do, CSV input will make no sense.
 		
 //		Scanner scanner = new Scanner(System.in);
+	
+	private static Logger logger = null;
+	static {
+		
+		try {
+			InitLogger.initialize();
+		} catch (FileNotFoundException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		}
+		
+		logger = InitLogger.logger[0];
+	}
 	
 	private GetData () {
 		
@@ -29,22 +51,40 @@ public final class GetData {
 		
 		public static void setRad1(int rad) {
 	   		//System.out.println("Enter the radius: ");
-			if (rad > 0)
-			rad1 = rad;
+			if (rad > 0) {
+				rad1 = rad;
+			}
+			else {
+				logger.log(Level.DEBUG, "GetData class got an illegal rad value: {}", rad);
+				throw new IllegalArgumentException("GetData class got an illegal rad value");
+			}
+			
 	   		//6; //scanner.nextInt();
 		}
 
 		public static void setLat1(double lat) {
 	    	//System.out.println("Enter the first latitude: ");
-			if (lat > -180 || lat < 180)
-			lat1 = lat;
+			if (lat > -90 && lat < 90) {
+				lat1 = lat;
+			}
+			else {
+				logger.log(Level.DEBUG, "GetData class got an illegal lat value: {}", lat);
+				throw new IllegalArgumentException("GetData class got an illegal lat value");
+			}
+				
 	    	 //48.104564; //scanner.nextDouble(); 
 	    }
 
 	    public static void setLon1(double lon) {
 		    //System.out.println("Enter the first longitude: ");
-	    	if (lon > -180 || lon < 180)
-	    	lon1 = lon;
+	    	if (lon > -180 && lon < 180) {
+	    		lon1 = lon;
+	    	}
+	    	else {
+	    		logger.log(Level.DEBUG, "GetData class got an illegal lon value: {}", lon);
+				throw new IllegalArgumentException("GetData class got an illegal lon value");
+			}
+	    	
 		    //return lon; //20.800041; //scanner.nextDouble();
 		} 
 	    /*

@@ -1,6 +1,5 @@
 package locations;
 
-import java.util.Scanner;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
@@ -47,10 +46,8 @@ final class CSVscanner {
 		container = new ArrayList<Tuple>();
 		
 		while ((coordinates = scanner.readNext()) != null) {
-			Tuple tuple = new Tuple();
-			tuple.setFirstCoordinate(Double.parseDouble(coordinates[0]));
-			tuple.setSecondCoordinate(Double.parseDouble(coordinates[1]));
-			tuple.setRadius(Integer.parseInt(coordinates[2]));
+			Tuple tuple = new Tuple(Double.parseDouble(coordinates[0]), 
+					Double.parseDouble(coordinates[1]), Integer.parseInt(coordinates[2]));
 			container.add(tuple);
 			lastIndex = container.size();
 		}
