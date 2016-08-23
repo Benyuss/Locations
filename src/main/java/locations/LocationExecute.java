@@ -12,56 +12,6 @@ import com.opencsv.*;
 
 import java.util.ArrayList;
 
-final class CSVscanner {
-//Scans CSV files until their last line. Saves data in Tuples (LOOk AT -> class Tuple- line 132) to ArrayList. 
-//You can test the class with CSVscanner.testScanner(); 
-	
-	private static Logger logger = null;
-	static {
-		
-		try {
-			InitLogger.initialize();
-		} catch (FileNotFoundException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		}
-		
-		logger = InitLogger.logger[0];
-	}
-	
-	static ArrayList<Tuple> container;
-	private static int lastIndex;
-	
-	public static int getLastIndex() {
-		return lastIndex;
-	}
-
-    public static void scan() throws Exception {
-  	
-		CSVReader scanner = new CSVReader(new FileReader("coordinates.csv"));
-		String [] coordinates;
-		container = new ArrayList<Tuple>();
-		
-		while ((coordinates = scanner.readNext()) != null) {
-			Tuple tuple = new Tuple(Double.parseDouble(coordinates[0]), 
-					Double.parseDouble(coordinates[1]), Integer.parseInt(coordinates[2]));
-			container.add(tuple);
-			lastIndex = container.size();
-		}
-		scanner.close();
-    }
-    
-    public static void testScanner() {
-		for (Tuple asd : container) {
-			System.out.println(asd);
-			logger.log(Level.DEBUG, "ScannerTest: " + asd);
-		}
-    }	
-}
-
 public class LocationExecute {
 	
 	private static Logger logger = null;
@@ -85,22 +35,21 @@ public class LocationExecute {
 	public static String getNabstring() {
 		return nabstring.toString();
 	}
-
-	private static Geohash geo = null;
-	private static BitSetBuilder geo1 = null;
-	private static ArrayList<Tuple> tupleList;
 	
-	public static ArrayList<Tuple> getTupleList() {
-		return tupleList;
+	@SuppressWarnings("unchecked")
+	public static final ArrayList<Tuple>[] tempArray = new ArrayList[1];
+	
+	
+	public static ArrayList<Tuple>[] getTempArray() {
+		return tempArray;
 	}
 
-	public static void calculate() {
+	public static void calculate(CSVScanner passedScanner) {
 		
-		tupleList = new ArrayList<Tuple>();
-		
-		try {
-			CSVscanner.scan();
-		}catch (Exception e) {};
+		Geohash geo = null;
+		BitSetBuilder geo1 = null;
+		ArrayList<Tuple> tupleList = new ArrayList<Tuple>();
+		CSVScanner scanner = passedScanner;
 		
 		double lat1 = GetData.getLat1();
 		double lon1 = GetData.getLon1();
@@ -113,11 +62,12 @@ public class LocationExecute {
 		
 		logger.log(Level.DEBUG, "Got the following data (super)->  Lat: " + lat1 + " Lon: " + lon1);
 		
-		for (int i = 0; i < CSVscanner.getLastIndex(); i++) {
+		for (int i = 0; i < scanner.getContainer().size(); i++) {
 			int k = 1;
 			logger.log(Level.INFO, ":::::::::: NEW TREE ::::::::::");
 			logger.log(Level.INFO, "SUPER is still ->  Lat: " + lat1 + " Lon: " + lon1+ " with " + rad1 + " meter radius");
-			Tuple pair2 = CSVscanner.container.get(i);
+			
+			Tuple pair2 = scanner.getIteratedContainer(i);
 			double lat2 = pair2.getFirstCoordinate();
 			double lon2 = pair2.getSecondCoordinate();
 			int rad2 = pair2.getRadius();
@@ -130,6 +80,8 @@ public class LocationExecute {
 			geo = new Geohash(bits2);
 			geo.exchangeValue();
 			tupleList.add(new Tuple(lat2, lon2, rad2, geo.getGeoHash(), loc1.isContains(loc2), loc1.distanceTo(loc2)));
+			
+			tempArray[0] = tupleList;
 			
 			logger.log(Level.DEBUG, "SUPER is " + loc1.isContains(loc2) + " that location." );
 			logger.log(Level.DEBUG, "Distance between SUPER and that location (in kilometers): " + loc1.distanceTo(loc2) );

@@ -1,18 +1,26 @@
 package locations;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.*;
-import org.springframework.boot.autoconfigure.*;
-import org.springframework.stereotype.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -49,23 +57,92 @@ class SpringBootController implements InitLogger {
 	}
 	
 	@PostMapping(value = "/geohash", params="Submit")
-	public String printHash(@ModelAttribute("user")Tuple tuple,ModelMap model) {
+	public String printHash(@ModelAttribute("user")Tuple tuple,ModelMap model, MultipartFile file) {
+		
 		GetData.setLat1(tuple.getFirstCoordinate());
 		GetData.setLon1(tuple.getSecondCoordinate());
 		GetData.setRad1(tuple.getRadius());
 		
-		LocationExecute.calculate();
-		model.addAttribute("geoItemList", LocationExecute.getTupleList());
-		model.addAttribute("listSize", LocationExecute.getTupleList().size());
+		CSVScanner scanner = new CSVScanner();
+    	if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+//				validateFile(file);
+				InputStream inputStream = new ByteArrayInputStream(bytes);
+				scanner.scan(inputStream);
+			}catch (Exception e) { /*TODO*/ }
+    	}
+    	else {
+    	    try {
+    	    	File file1 = new File("coordinates.csv");
+        	    FileInputStream input = new FileInputStream(file1);
+				scanner.scan(input);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+		
+		LocationExecute.calculate(scanner);
+		model.addAttribute("geoItemList", LocationExecute.getTempArray()[0]);
+		model.addAttribute("listSize", LocationExecute.getTempArray()[0].size());
+		LocationExecute.tempArray[0] = new ArrayList<Tuple>();
 		return "Geohash";
 	}
 	
-    @RequestMapping(value = "/geohash", params="reset", method = RequestMethod.POST)
+    @PostMapping(value = "/geohash", params="reset")
     public ModelAndView method() {
             return new ModelAndView("redirect:geohash");
 
     }
-	
+
+//    public File convert(MultipartFile file)
+//    {    
+//        File convFile = new File(file.getOriginalFilename());
+//        convFile.createNewFile(); 
+//        FileOutputStream fos = new FileOutputStream(convFile); 
+//        fos.write(file.getBytes());
+//        fos.close(); 
+//        return convFile;
+//    }
+    
+    private void validateFile(MultipartFile file) {
+    	if (!file.getContentType().equals("text/csv")) {
+    		throw new RuntimeException("Only csv files are accepted");
+    	}
+    }
+    
+//    	
+//		if (!file.isEmpty()) {
+//			try {
+//				byte[] bytes = file.getBytes();
+//
+//				// Creating the directory to store file
+//				String rootPath = System.getProperty("catalina.home");
+//				File dir = new File(rootPath + File.separator + "tmpFiles");
+//				if (!dir.exists())
+//					dir.mkdirs();
+//
+//				// Create the file on server
+//				File serverFile = new File(dir.getAbsolutePath()
+//						+ File.separator + name);
+//				BufferedOutputStream stream = new BufferedOutputStream(
+//						new FileOutputStream(serverFile));
+//				stream.write(bytes);
+//				stream.close();
+//
+//				logger.info("Server File Location="
+//						+ serverFile.getAbsolutePath());
+//
+//				return "You successfully uploaded file=" + name;
+//			} catch (Exception e) {
+//				return "You failed to upload " + name + " => " + e.getMessage();
+//			}
+//		} else {
+//			return "You failed to upload " + name
+//					+ " because the file was empty.";
+//		}
+//	}
 	
     public static void main (String args[]) throws Exception {
         SpringApplication.run(SpringBootController.class, args);

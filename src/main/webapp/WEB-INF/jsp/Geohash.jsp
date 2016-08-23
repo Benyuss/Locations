@@ -15,7 +15,7 @@
 	<tr>
 	<th> Latitude </th> <th> Longitude </th> <th> Radius </th> <th> Geohash </th> <th> Contains </th> <th> Distance </th>
 	</tr>
-	<c:forEach var="geoItem" begin="1" end= "${listSize}" items="${geoItemList}" >
+	<c:forEach var="geoItem" begin="0" end= "${listSize}" items="${geoItemList}" >
 		<tr>
 			<td> <c:out value="${geoItem.firstCoordinate}"/> </td>
 			<td> <c:out value="${geoItem.secondCoordinate}"/> </td>
