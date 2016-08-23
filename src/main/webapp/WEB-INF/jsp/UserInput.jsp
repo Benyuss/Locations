@@ -15,8 +15,9 @@
 	<tr> <th>Latitude:</th> <td><form:input type="number" step="any" path="firstCoordinate"/></td></tr>
 	<tr> <th>Longitude:</th> <td><form:input type="number" step="any" path="secondCoordinate"/></td></tr>
 	<tr> <th>Radius:</th> <td><form:input type="number" step="any" path="radius"/></td></tr> 
-	<tr> <td><input type="submit" name="Submit" value="Submit"/> </td> 
-		 <td> <input type="submit" name="SubmitWithDefault" value="Default Values"> </td> <tr>
+	<tr> <td> <br> </td> </tr>
+	<tr> <td><input type="submit" name="Submit" value="Submit" style="height:25px; width:100px"/> </td> 
+		 <td> <input type="submit" name="SubmitWithDefault" value="Default Values" style="height:25px; width:100px"> </td> <tr>
 	
 	</form:form>
 </table>

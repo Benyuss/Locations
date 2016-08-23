@@ -21,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 class SpringBootController implements InitLogger {
 	
 	private static Logger logger = null;
-//	private double lat;
-//	private double lon;
 	
 	static {
 		try {
@@ -61,6 +59,13 @@ class SpringBootController implements InitLogger {
 		model.addAttribute("listSize", LocationExecute.getTupleList().size());
 		return "Geohash";
 	}
+	
+    @RequestMapping(value = "/geohash", params="reset", method = RequestMethod.POST)
+    public ModelAndView method() {
+            return new ModelAndView("redirect:geohash");
+
+    }
+	
 	
     public static void main (String args[]) throws Exception {
         SpringApplication.run(SpringBootController.class, args);
