@@ -1,4 +1,5 @@
 package locations;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,15 +17,15 @@ import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
 interface InitLogger {
-	
+
 	final Logger logger[] = new Logger[1];
-	
+
 	static void initialize() throws FileNotFoundException, IOException {
-		
-		
+
 		ConfigurationFactory factory = XmlConfigurationFactory.getInstance();
-		//TODO try-catch?? 
-		ConfigurationSource configurationSource = new ConfigurationSource(new FileInputStream(new File("Configuration.xml")));
+		// TODO try-catch??
+		ConfigurationSource configurationSource = new ConfigurationSource(
+				new FileInputStream(new File("Configuration.xml")));
 		Configuration configuration = factory.getConfiguration(configurationSource);
 		ConsoleAppender appender = ConsoleAppender.createDefaultAppenderForLayout(PatternLayout.createDefaultLayout());
 		// Add console appender into configuration

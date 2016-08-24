@@ -1,10 +1,7 @@
 package locations;
 
+//It's better to return an enum rather than a Constant String. 
+//Used to know if the location given by user is contains the other locations or not.
 enum Contains {
-	CONTAINS(1), NOT_CONTAINS(2), SEMI_CONTAINS(3);
-	private int value;
-	
-	private Contains (int value) {
-		this.value = value;
-	}
+	CONTAINS, NOT_CONTAINS, SEMI_CONTAINS;
 }

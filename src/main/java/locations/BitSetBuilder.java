@@ -7,37 +7,45 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
 
 public class BitSetBuilder extends Location {
-private static Logger logger = null;
-	
+	// Creates a bitset based on Geohash calculating algorithm. It will be
+	// parsed and converted into Geohash value.
+	// Further info -> http://www.bigfastblog.com/geohash-intro
+	// Wiki page -> https://en.wikipedia.org/wiki/Geohash
+
+	private static Logger logger = null;
+
 	static {
-		
+
 		try {
 			InitLogger.initialize();
 		} catch (FileNotFoundException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			logger.log(Level.ERROR,
+					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
 		} catch (IOException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			logger.log(Level.ERROR,
+					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
 		}
-		
+
 		logger = InitLogger.logger[0];
 	}
-	
+
 	public BitSetBuilder(double lat, double lon, int radius) {
 		super(lat, lon, radius);
 	}
 
 	// lon - vertical (-180 -> +180) every even round
 	// lat - horizontal [<--->] (-90 -> +90) every odd round
-	
+
 	private static final double MAXLon = 180;
 	private static final double MAXLat = 90;
 	private double maxLon = 180;
 	private double minLon = -180;
 	private double maxLat = 90;
 	private double minLat = -90;
-	private static final int arrayLength = 40;
+	private static final int arrayLength = 40; // length / 5 = x ; Geohash will
+												// be x characters long.
 
 	private boolean bits[];
 
@@ -74,18 +82,19 @@ private static Logger logger = null;
 
 	private final void CurrentLatCalc(int x, int bitSetIndex) {
 		// KOMPLETT BAL OLDAL
-//		if (bits.get(bitSetIndex) == true) {
+		// if (bits.get(bitSetIndex) == true) {
 		if (bits[bitSetIndex] == true) {
 			minLat += MAXLat / x;
 			logger.log(Level.INFO, "minLat : " + minLat);
 		} else {
 			maxLat -= MAXLat / x;
-			logger.log(Level.INFO, "maxLat : " +  maxLat);
+			logger.log(Level.INFO, "maxLat : " + maxLat);
 		}
 		// VÉGE
 	}
-	 
 
+	// toString will look like this: 11001 10101 01010 10001 .... (5chars +
+	// space)
 	public String bitSetToString(int arrayLength, boolean bits[]) {
 
 		StringBuilder sb = new StringBuilder();
@@ -105,18 +114,20 @@ private static Logger logger = null;
 			}
 			counter++;
 		}
-		String temp = sb.toString(); //3x call of toString is expensive.
+		String temp = sb.toString(); // 3x call of toString is expensive.
+										// (return, log, sysout if needed).
 		logger.log(Level.DEBUG, "bitset as string :: " + temp);
 		return temp;
 	}
 
+	// Bread and butter. This method do the job.
 	public boolean[] createBitset() {
 		int x = 1;
 		int bitSetIndex = 0;
 		bits = new boolean[arrayLength];
-//		bits = new BitSet(arrayLength);
-		for (int i = 0; i < arrayLength/2; ++i) {
-			
+		// bits = new BitSet(arrayLength);
+		for (int i = 0; i < arrayLength / 2; ++i) {
+
 			checkVertical(bitSetIndex);
 			CurrentLonCalc(x, bitSetIndex);
 			bitSetIndex++;
@@ -126,7 +137,7 @@ private static Logger logger = null;
 			x = x * 2;
 		}
 		bitSetToString(bitSetIndex, bits);
-//		logger.log(Level.DEBUG, bits);
+		// logger.log(Level.DEBUG, bits);
 		return bits;
 	}
 }
