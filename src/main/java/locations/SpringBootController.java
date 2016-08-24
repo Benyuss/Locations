@@ -42,12 +42,12 @@ class SpringBootController implements InitLogger {
 		logger = InitLogger.logger[0];
 	}
 
-	
+	private static Tuple userData;
 	
 	
 	@GetMapping(value = "/geohash") // Get values from textboxes.
 	public String getUserInput(ModelMap model) {
-		model.put("command", new Tuple());
+		model.put("command", userData = new Tuple());
 		return "UserInput";
 	}
 
@@ -55,7 +55,7 @@ class SpringBootController implements InitLogger {
 																	// default
 																	// values.
 	public String defaultUserInput(ModelMap model) {
-		model.put("command", new Tuple(48.104564, 20.800041, 6));
+		model.put("command", userData = new Tuple(48.104564, 20.800041, 6));
 		return "UserInput";
 	}
 
@@ -64,9 +64,9 @@ class SpringBootController implements InitLogger {
 														// userinput.
 	public String printHash(@ModelAttribute("user") Tuple tuple, ModelMap model, MultipartFile file) {
 
-		GetData.setLat1(tuple.getFirstCoordinate()); // user data
-		GetData.setLon1(tuple.getSecondCoordinate()); // user data
-		GetData.setRad1(tuple.getRadius()); // user data
+//		GetData.setLat1(tuple.getFirstCoordinate()); // user data
+//		GetData.setLon1(tuple.getSecondCoordinate()); // user data
+//		GetData.setRad1(tuple.getRadius()); // user data
 
 		CSVScanner scanner = new CSVScanner(); // file data parser. If no file
 												// is selected, it will choose
@@ -91,7 +91,7 @@ class SpringBootController implements InitLogger {
 			}
 		}
 
-		LocationExecute.calculate(scanner);
+		LocationExecute.calculate(scanner, userData);
 		model.addAttribute("geoItemList", LocationExecute.getTempArray()[0]);
 		model.addAttribute("listSize", LocationExecute.getTempArray()[0].size());
 		LocationExecute.tempArray[0] = new ArrayList<Tuple>();

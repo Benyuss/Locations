@@ -40,16 +40,19 @@ public class LocationExecute {
 		return tempArray;
 	}
 
-	public static void calculate(CSVScanner passedScanner) {
+	public static void calculate(CSVScanner passedScanner, Tuple userData) {
 
 		Geohash geo = null;
 		BitSetBuilder geo1 = null;
 		ArrayList<Tuple> tupleList = new ArrayList<Tuple>();
 		CSVScanner scanner = passedScanner;
 
-		double lat1 = GetData.getLat1();
-		double lon1 = GetData.getLon1();
-		int rad1 = GetData.getRad1();
+//		double lat1 = GetData.getLat1();
+//		double lon1 = GetData.getLon1();
+//		int rad1 = GetData.getRad1();
+		double lat1 = userData.getFirstCoordinate();
+		double lon1 = userData.getSecondCoordinate();
+		int rad1 = userData.getRadius();
 		geo1 = new BitSetBuilder(lat1, lon1, rad1);
 		boolean[] bits1 = geo1.createBitset();
 		geo = new Geohash(bits1);
