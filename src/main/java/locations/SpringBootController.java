@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @EnableAutoConfiguration
-class SpringBootController implements InitLogger {
+class SpringBootController{
 
 	private static Logger logger = null;
 
@@ -78,15 +78,17 @@ class SpringBootController implements InitLogger {
 				// validateFile(file);
 				InputStream inputStream = new ByteArrayInputStream(bytes);
 				scanner.scan(inputStream);
-			} catch (Exception e) {
-				/* TODO */ }
+			} catch (IOException e) {
+				logger.log(Level.DEBUG, "Can't parse data.");
+				e.printStackTrace();
+			}
 		} else {
 			try {
 				File file1 = new File("coordinates.csv");
 				FileInputStream input = new FileInputStream(file1);
 				scanner.scan(input);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+			} catch (IOException e) {
+				logger.log(Level.DEBUG, "Can't parse default csv file.");
 				e.printStackTrace();
 			}
 		}

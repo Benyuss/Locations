@@ -36,7 +36,7 @@ public class CSVScanner {
 	private ArrayList<Tuple> container;
 	private int lastIndex;
 
-	public void scan(InputStream file) throws Exception {
+	public void scan(InputStream file) throws IOException  {
 		CSVReader scanner = new CSVReader(new InputStreamReader(file)); // InputStreamReader
 																		// is
 																		// needed

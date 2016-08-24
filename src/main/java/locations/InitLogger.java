@@ -23,7 +23,6 @@ interface InitLogger {
 	static void initialize() throws FileNotFoundException, IOException {
 
 		ConfigurationFactory factory = XmlConfigurationFactory.getInstance();
-		// TODO try-catch??
 		ConfigurationSource configurationSource = new ConfigurationSource(
 				new FileInputStream(new File("Configuration.xml")));
 		Configuration configuration = factory.getConfiguration(configurationSource);
