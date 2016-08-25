@@ -6,13 +6,13 @@ import org.junit.Test;
 public class LocationTest {
 
 	@Test
-	public void testIsNotContains() {
+	public void testIsSemiContains() {
 		Location loc1 = new Location(0, 0, 1);
 		Location loc2 = new Location(0, 0, 2);
 		DistanceHelp helper = new DistanceHelp(loc1);
 		Contains contains = helper.isContains(loc2);
 
-		Assert.assertEquals(Contains.NOT_CONTAINS, contains);
+		Assert.assertEquals(Contains.SEMI_CONTAINS, contains);
 	}
 
 	@Test

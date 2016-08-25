@@ -5,17 +5,14 @@ public class DistanceHelp {
 	private double lat; // Latitude
 	private double lon; // Longitude
 	private int rad; // radius
-	
-	public DistanceHelp (Location loc) {
+
+	public DistanceHelp(Location loc) {
 		this.lat = loc.lat;
 		this.lon = loc.lon;
 		this.rad = loc.rad;
 	}
-	
-	public double distanceTo(Location loc) { // Distance between that and the
-												// parameter Location (it's the
-												// user given at the current
-												// use)
+
+	public double distanceTo(Location loc) { // Distance between "this." and the parameter Location 
 		HaversineCalculator hav = new HaversineCalculator();
 		double distanceValue = hav.haversineValue(this.lat, this.lon, loc.lat, loc.lon);
 		return distanceValue;
@@ -26,14 +23,20 @@ public class DistanceHelp {
 												// radius, user-given is
 												// contains that location.
 												// Semi-Contains can not happen.
+		
 		double distanceValue = this.distanceTo(loc);
-		double value = distanceValue + loc.rad;
-		if (value < this.rad) {
+		
+		if (distanceValue <= (this.rad - loc.getRad()))
+		{
 			return Contains.CONTAINS;
-		} else if (value > this.rad) {
+		}
+		else if (distanceValue > (this.rad + loc.getRad()))
+		{
 			return Contains.NOT_CONTAINS;
-		} else {
-			return Contains.SEMI_CONTAINS;
+		}
+		else //if (distanceValue <= (this.rad + loc.getRad()))
+		{
+		   return Contains.SEMI_CONTAINS;
 		}
 	}
 }

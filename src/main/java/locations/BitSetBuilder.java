@@ -1,9 +1,6 @@
 package locations;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
 public class BitSetBuilder extends Location {
@@ -12,24 +9,7 @@ public class BitSetBuilder extends Location {
 	// Further info -> http://www.bigfastblog.com/geohash-intro
 	// Wiki page -> https://en.wikipedia.org/wiki/Geohash
 
-	private static Logger logger = null;
-
-	static {
-
-		try {
-			InitLogger.initialize();
-		} catch (FileNotFoundException e) {
-			logger.log(Level.ERROR,
-					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.log(Level.ERROR,
-					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		}
-
-		logger = InitLogger.logger[0];
-	}
+	static final Logger logger = (Logger) LogManager.getLogger(BitSetBuilder.class.getName());
 
 	// lon - vertical (-180 -> +180) every even round
 	// lat - horizontal [<--->] (-90 -> +90) every odd round
@@ -37,13 +17,13 @@ public class BitSetBuilder extends Location {
 	private static final double MAXLat = 90;
 	private static final int arrayLength = 40; // length / 5 = x ; Geohash will
 												// be x characters long.
-	
+
 	private double maxLon = 180;
 	private double minLon = -180;
 	private double maxLat = 90;
 	private double minLat = -90;
 	private boolean bits[];
-	
+
 	public BitSetBuilder(double lat, double lon, int radius) {
 		super(lat, lon, radius);
 	}
@@ -72,10 +52,10 @@ public class BitSetBuilder extends Location {
 		// Complete left side
 		if (bits[bitSetIndex] == true) {
 			minLon += MAXLon / x;
-			logger.log(Level.INFO, "minLon : " + minLon);
+			logger.trace("minLon : " + minLon);
 		} else {
 			maxLon -= MAXLon / x;
-			logger.log(Level.INFO, "maxLon : " + maxLon);
+			logger.trace("maxLon : " + maxLon);
 		}
 	}
 
@@ -84,10 +64,10 @@ public class BitSetBuilder extends Location {
 		// if (bits.get(bitSetIndex) == true) {
 		if (bits[bitSetIndex] == true) {
 			minLat += MAXLat / x;
-			logger.log(Level.INFO, "minLat : " + minLat);
+			logger.trace("minLat : " + minLat);
 		} else {
 			maxLat -= MAXLat / x;
-			logger.log(Level.INFO, "maxLat : " + maxLat);
+			logger.trace("maxLat : " + maxLat);
 		}
 		// VÉGE
 	}
@@ -115,7 +95,7 @@ public class BitSetBuilder extends Location {
 		}
 		String temp = sb.toString(); // 3x call of toString is expensive.
 										// (return, log, sysout if needed).
-		logger.log(Level.DEBUG, "bitset as string :: " + temp);
+		logger.debug("bitset as string :: " + temp);
 		return temp;
 	}
 

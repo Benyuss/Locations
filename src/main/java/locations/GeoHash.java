@@ -1,47 +1,28 @@
 package locations;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-class Geohash {
+class GeoHash {
 	// It will parse the bitset made by BitSetBuilder class. Look at there for
 	// more info.
 
-	private static Logger logger = null;
-	static {
-
-		try {
-			InitLogger.initialize();
-		} catch (FileNotFoundException e) {
-			logger.log(Level.ERROR,
-					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.log(Level.ERROR,
-					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
-			e.printStackTrace();
-		}
-
-		logger = InitLogger.logger[0];
-	}
+	static final Logger logger = (Logger) LogManager.getLogger(GeoHash.class);
 
 	boolean[] bitSet;
 	private String geoHash; // Will store the final hash.
-	
-	public Geohash(boolean[] bits) { // Constructor should get the bitSet to
+
+	public GeoHash(boolean[] bits) { // Constructor should get the bitSet to
 		// start parsing process.
-		logger.log(Level.DEBUG, bits);
+		logger.debug(bits);
 		this.bitSet = bits;
 	}
-	
+
 	public String getGeoHash() { // Just a getter.
-		logger.log(Level.DEBUG, "Geohash is: " + geoHash);
+		logger.info("Geohash is: " + geoHash);
 		return geoHash;
 	}
-	
+
 	static class Base32 { // Character table based on Geohash Wiki.
 		private static String stringBase = "0123456789bcdefghjkmnpqrstuvwxyz";
 		private static char Base32array[] = stringBase.toCharArray(); // to get
@@ -51,14 +32,14 @@ class Geohash {
 		// Value
 		// =
 		// index.
-		
+
 		public static char getBase(int x) { // It's a simple getter. Based on
 			// the fact Value = index.
-			logger.log(Level.DEBUG, "getBase method got a(n): " + x + " and that's " + Base32array[x]);
+			logger.debug("getBase method got a(n): " + x + " and that's " + Base32array[x]);
 			return Base32array[x];
 		}
 	}
-	
+
 	// Used in tests.
 	@Override
 	public boolean equals(Object obj) {
@@ -68,7 +49,7 @@ class Geohash {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Geohash other = (Geohash) obj;
+		GeoHash other = (GeoHash) obj;
 		if (geoHash == null) {
 			if (other.geoHash != null)
 				return false;
@@ -94,10 +75,10 @@ class Geohash {
 				if (bitSet[i] == true) {
 					values[it] = Math.pow(2, 4 - it); // adds pow of 2 value to
 														// the current index
-					logger.log(Level.INFO, "true\t" + values[it]);
+					logger.trace("true \t" + values[it]);
 				} else {
 					values[it] = 0; // adds 0 value to the current index
-					logger.log(Level.INFO, "false\t" + values[it]);
+					logger.trace("false \t" + values[it]);
 				}
 				it++;
 				i++;
