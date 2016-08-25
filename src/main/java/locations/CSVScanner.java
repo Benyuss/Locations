@@ -36,6 +36,18 @@ public class CSVScanner {
 	private ArrayList<Tuple> container;
 	private int lastIndex;
 
+	public Tuple getIteratedContainer(int i) {
+		return container.get(i);
+	}
+
+	public ArrayList<Tuple> getContainer() {
+		return container;
+	}
+
+	public int getLastIndex() {
+		return lastIndex;
+	}
+	
 	public void scan(InputStream file) throws IOException  {
 		CSVReader scanner = new CSVReader(new InputStreamReader(file)); // InputStreamReader
 																		// is
@@ -60,17 +72,4 @@ public class CSVScanner {
 		}
 		scanner.close();
 	}
-
-	public Tuple getIteratedContainer(int i) {
-		return container.get(i);
-	}
-
-	public ArrayList<Tuple> getContainer() {
-		return container;
-	}
-
-	public int getLastIndex() {
-		return lastIndex;
-	}
-
 }

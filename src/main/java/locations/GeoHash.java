@@ -28,6 +28,37 @@ class Geohash {
 		logger = InitLogger.logger[0];
 	}
 
+	boolean[] bitSet;
+	private String geoHash; // Will store the final hash.
+	
+	public Geohash(boolean[] bits) { // Constructor should get the bitSet to
+		// start parsing process.
+		logger.log(Level.DEBUG, bits);
+		this.bitSet = bits;
+	}
+	
+	public String getGeoHash() { // Just a getter.
+		logger.log(Level.DEBUG, "Geohash is: " + geoHash);
+		return geoHash;
+	}
+	
+	static class Base32 { // Character table based on Geohash Wiki.
+		private static String stringBase = "0123456789bcdefghjkmnpqrstuvwxyz";
+		private static char Base32array[] = stringBase.toCharArray(); // to get
+		// them
+		// by
+		// value.
+		// Value
+		// =
+		// index.
+		
+		public static char getBase(int x) { // It's a simple getter. Based on
+			// the fact Value = index.
+			logger.log(Level.DEBUG, "getBase method got a(n): " + x + " and that's " + Base32array[x]);
+			return Base32array[x];
+		}
+	}
+	
 	// Used in tests.
 	@Override
 	public boolean equals(Object obj) {
@@ -44,33 +75,6 @@ class Geohash {
 		} else if (!geoHash.equals(other.geoHash))
 			return false;
 		return true;
-	}
-
-	boolean[] bitSet;
-
-	public Geohash(boolean[] bits) { // Constructor should get the bitSet to
-										// start parsing process.
-		logger.log(Level.DEBUG, bits);
-		this.bitSet = bits;
-	}
-
-	private String geoHash; // Will store the final hash.
-
-	static class Base32 { // Character table based on Geohash Wiki.
-		private static String stringBase = "0123456789bcdefghjkmnpqrstuvwxyz";
-		private static char Base32array[] = stringBase.toCharArray(); // to get
-																		// them
-																		// by
-																		// value.
-																		// Value
-																		// =
-																		// index.
-
-		public static char getBase(int x) { // It's a simple getter. Based on
-											// the fact Value = index.
-			logger.log(Level.DEBUG, "getBase method got a(n): " + x + " and that's " + Base32array[x]);
-			return Base32array[x];
-		}
 	}
 
 	// This is the method which do the job.
@@ -111,10 +115,5 @@ class Geohash {
 		}
 		geoHash = sb.toString(); // Our StringBuilder now stores the whole
 									// Geohash so it's time to pass it.
-	}
-
-	public String getGeoHash() { // Just a getter.
-		logger.log(Level.DEBUG, "Geohash is: " + geoHash);
-		return geoHash;
 	}
 }

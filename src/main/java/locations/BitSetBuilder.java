@@ -31,23 +31,22 @@ public class BitSetBuilder extends Location {
 		logger = InitLogger.logger[0];
 	}
 
-	public BitSetBuilder(double lat, double lon, int radius) {
-		super(lat, lon, radius);
-	}
-
 	// lon - vertical (-180 -> +180) every even round
 	// lat - horizontal [<--->] (-90 -> +90) every odd round
-
 	private static final double MAXLon = 180;
 	private static final double MAXLat = 90;
+	private static final int arrayLength = 40; // length / 5 = x ; Geohash will
+												// be x characters long.
+	
 	private double maxLon = 180;
 	private double minLon = -180;
 	private double maxLat = 90;
 	private double minLat = -90;
-	private static final int arrayLength = 40; // length / 5 = x ; Geohash will
-												// be x characters long.
-
 	private boolean bits[];
+	
+	public BitSetBuilder(double lat, double lon, int radius) {
+		super(lat, lon, radius);
+	}
 
 	public static int getArrayLength() {
 		return arrayLength;

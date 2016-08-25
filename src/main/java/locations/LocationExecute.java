@@ -26,15 +26,15 @@ public class LocationExecute {
 
 		logger = InitLogger.logger[0];
 	}
-
-	private static StringBuilder nabstring = new StringBuilder();
-
-	public static String getNabstring() {
-		return nabstring.toString();
-	}
-
+	
+	
 	@SuppressWarnings("unchecked")
 	public static final ArrayList<Tuple>[] tempArray = new ArrayList[1];
+	private static StringBuilder tempString = new StringBuilder();
+
+	public static String getTempString() {
+		return tempString.toString();
+	}
 
 	public static ArrayList<Tuple>[] getTempArray() {
 		return tempArray;
@@ -47,9 +47,6 @@ public class LocationExecute {
 		ArrayList<Tuple> tupleList = new ArrayList<Tuple>();
 		CSVScanner scanner = passedScanner;
 
-//		double lat1 = GetData.getLat1();
-//		double lon1 = GetData.getLon1();
-//		int rad1 = GetData.getRad1();
 		double lat1 = userData.getFirstCoordinate();
 		double lon1 = userData.getSecondCoordinate();
 		int rad1 = userData.getRadius();
@@ -74,18 +71,19 @@ public class LocationExecute {
 					"Got the following data ->  Lat: " + lat2 + " Lon: " + lon2 + " with " + rad2 + " meter radius");
 			Location loc1 = new Location(lat1, lon1, rad1);
 			Location loc2 = new Location(lat2, lon2, rad2);
-
+			
 			geo1 = new BitSetBuilder(lat2, lon2, rad2);
 			boolean[] bits2 = geo1.createBitset();
 			geo = new Geohash(bits2);
 			geo.exchangeValue();
-			tupleList.add(new Tuple(lat2, lon2, rad2, geo.getGeoHash(), loc1.isContains(loc2), loc1.distanceTo(loc2)));
+			DistanceHelp helper = new DistanceHelp(loc1);
+			tupleList.add(new Tuple(lat2, lon2, rad2, geo.getGeoHash(), helper.isContains(loc2), helper.distanceTo(loc2)));
 
 			tempArray[0] = tupleList;
-
-			logger.log(Level.DEBUG, "SUPER is " + loc1.isContains(loc2) + " that location.");
+			
+			logger.log(Level.DEBUG, "SUPER is " + helper.isContains(loc2) + " that location.");
 			logger.log(Level.DEBUG,
-					"Distance between SUPER and that location (in kilometers): " + loc1.distanceTo(loc2));
+					"Distance between SUPER and that location (in kilometers): " + helper.distanceTo(loc2));
 		}
 	}
 }

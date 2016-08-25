@@ -23,6 +23,13 @@ public final class Tuple {
 		logger = InitLogger.logger[0];
 	}
 	
+	private Double firstCoordinate; //lat
+	private Double secondCoordinate; //lon
+	private int radius;
+	private String geoHash;
+	private Contains contains; //user-given is contains the current location or not
+	private double distance; //distance between user-given and parsed location.
+	
 	public Tuple () {
 		//If we just want to initialize a Tuple but without values.
 	}
@@ -48,14 +55,6 @@ public final class Tuple {
 		this.contains = contains;
 		this.distance = distance;
 	}
-
-
-	private Double firstCoordinate; //lat
-	private Double secondCoordinate; //lon
-	private int radius;
-	private String geoHash;
-	private Contains contains; //user-given is contains the current location or not
-	private double distance; //distance between user-given and parsed location.
 
 	public double getDistance() {
 		return distance;

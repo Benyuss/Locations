@@ -67,7 +67,6 @@ class SpringBootController{
 //		GetData.setLat1(tuple.getFirstCoordinate()); // user data
 //		GetData.setLon1(tuple.getSecondCoordinate()); // user data
 //		GetData.setRad1(tuple.getRadius()); // user data
-
 		CSVScanner scanner = new CSVScanner(); // file data parser. If no file
 												// is selected, it will choose
 												// coordinates.csv from local
@@ -93,7 +92,7 @@ class SpringBootController{
 			}
 		}
 
-		LocationExecute.calculate(scanner, userData);
+		LocationExecute.calculate(scanner, tuple);
 		model.addAttribute("geoItemList", LocationExecute.getTempArray()[0]);
 		model.addAttribute("listSize", LocationExecute.getTempArray()[0].size());
 		LocationExecute.tempArray[0] = new ArrayList<Tuple>();

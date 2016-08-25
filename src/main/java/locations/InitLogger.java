@@ -16,9 +16,9 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
-interface InitLogger {
+public class InitLogger {
 
-	final Logger logger[] = new Logger[1];
+	final static Logger logger[] = new Logger[1];
 
 	static void initialize() throws FileNotFoundException, IOException {
 
