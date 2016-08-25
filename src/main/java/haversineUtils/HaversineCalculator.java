@@ -1,4 +1,4 @@
-package locations;
+package haversineUtils;
 
 public final class HaversineCalculator {
 	// Calculates the Haversine Formula. Look at

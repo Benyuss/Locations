@@ -1,4 +1,4 @@
-package locations;
+package geoLocations;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -11,14 +11,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
+import abstractUtils.CSVScanner;
+import dataModels.PairedData;
+
 public class DataStream {
 
 	static final Logger logger = (Logger) LogManager.getLogger(DataStream.class.getName());
 
-	public ArrayList<PairedDataStructure> forwardData(MultipartFile file, PairedDataStructure pairedData) {
+	public ArrayList<PairedData> forwardData(MultipartFile file, PairedData userInput) {
 
-		CSVScanner scanner = new CSVScanner(); // file data parser. If no file is selected, it will choose
-												// coordinates.csv from local machine.
+		CSVScanner scanner = new CSVScanner(); // file data parser. If no file
+												// is selected, it will choose
+												// coordinates.csv from local
+												// machine.
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
@@ -27,7 +32,6 @@ public class DataStream {
 				scanner.scan(inputStream);
 			} catch (IOException e) {
 				logger.error("Can't parse data. Full stack trace: ", e);
-				e.printStackTrace();
 			}
 		} else {
 			try {
@@ -40,6 +44,6 @@ public class DataStream {
 		}
 
 		LocationCalculator locationCalc = new LocationCalculator();
-		return locationCalc.calculate(scanner, pairedData);
+		return locationCalc.calculate(scanner, userInput);
 	}
 }

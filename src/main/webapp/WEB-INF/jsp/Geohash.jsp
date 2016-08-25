@@ -17,9 +17,9 @@
 	</tr>
 	<c:forEach var="geoItem" begin="1" end= "${listSize}" items="${geoItemList}" >
 		<tr>
-			<td> <c:out value="${geoItem.firstCoordinate}"/> </td>
-			<td> <c:out value="${geoItem.secondCoordinate}"/> </td>
-			<td> <c:out value="${geoItem.radius}"/> </td>
+			<td> <c:out value="${geoItem.loc.latitude}"/> </td>
+			<td> <c:out value="${geoItem.loc.longitude}"/> </td>
+			<td> <c:out value="${geoItem.loc.radius}"/> </td>
 			<td> <c:out value="${geoItem.geoHash}"/> </td>
 			<td> <c:out value="${geoItem.contains}"/> </td>
 			<td> <c:out value="${geoItem.distance}"/> </td>

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import geoHashUtils.BitSetBuilder;
+import geoHashUtils.GeoHash;
+
 public class GeoHashTest {
 	@Test
 	public void test() {

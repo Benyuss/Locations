@@ -1,4 +1,4 @@
-package locations;
+package webserver;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dataModels.Location;
+import dataModels.PairedData;
+import geoLocations.DataStream;
+
 @Controller
 @EnableAutoConfiguration
 class SpringBootController {
@@ -22,7 +26,7 @@ class SpringBootController {
 
 	@GetMapping(value = "/geohash") // Get values from textboxes.
 	public String getUserInput(ModelMap model) {
-		model.put("command", new PairedDataStructure());
+		model.put("command", new Location() );
 		return "UserInput";
 	}
 
@@ -30,22 +34,22 @@ class SpringBootController {
 																	// default
 																	// values.
 	public String defaultUserInput(ModelMap model) {
-		model.put("command", new PairedDataStructure(48.104564, 20.800041, 6));
+		model.put("command", new Location(48.104564, 20.800041, 6) );
 		return "UserInput";
 	}
 
 	@PostMapping(value = "/geohash", params = "Submit") // Start calculating
 														// with file +
 														// userinput.
-	public String printTable(@ModelAttribute("user") PairedDataStructure userInput, ModelMap model,
+	public String printTable(@ModelAttribute("user") Location userInput , ModelMap model,
 			MultipartFile file) {
 
 		DataStream datach = new DataStream();
-		ArrayList<PairedDataStructure> currentData = datach.forwardData(file, userInput);
+		ArrayList<PairedData> currentData = datach.forwardData(file, new PairedData (userInput));
 
 		model.addAttribute("geoItemList", currentData);
 		model.addAttribute("listSize", currentData.size());
-		
+
 		// If you want to see user input in the first row of the html table,
 		// change foreach begin value from 1 -> 0 (geohash.jsp)
 		return "Geohash";

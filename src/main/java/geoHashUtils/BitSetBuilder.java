@@ -1,7 +1,9 @@
-package locations;
+package geoHashUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+
+import dataModels.Location;
 
 public class BitSetBuilder extends Location {
 	// Creates a bitset based on Geohash calculating algorithm. It will be
@@ -33,7 +35,7 @@ public class BitSetBuilder extends Location {
 	}
 
 	private final void checkHorizontal(int bitSetIndex) {
-		if (((maxLat + minLat) / 2) <= lat) {
+		if (((maxLat + minLat) / 2) <= getLatitude()) {
 			bits[bitSetIndex] = true;
 		} else {
 			bits[bitSetIndex] = false;
@@ -41,7 +43,7 @@ public class BitSetBuilder extends Location {
 	}
 
 	private final void checkVertical(int bitSetIndex) {
-		if (((maxLon + minLon) / 2) <= lon) {
+		if (((maxLon + minLon) / 2) <= getLongitude()) {
 			bits[bitSetIndex] = true;
 		} else {
 			bits[bitSetIndex] = false;
