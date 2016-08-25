@@ -1,12 +1,12 @@
 package locations;
 
-public class DistanceHelp {
+public class DistanceBasedUtilty {
 
 	private double lat; // Latitude
 	private double lon; // Longitude
 	private int rad; // radius
 
-	public DistanceHelp(Location loc) {
+	public DistanceBasedUtilty(Location loc) {
 		this.lat = loc.lat;
 		this.lon = loc.lon;
 		this.rad = loc.rad;

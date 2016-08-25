@@ -9,7 +9,7 @@ public class BitSetBuilder extends Location {
 	// Further info -> http://www.bigfastblog.com/geohash-intro
 	// Wiki page -> https://en.wikipedia.org/wiki/Geohash
 
-	static final Logger logger = (Logger) LogManager.getLogger(BitSetBuilder.class.getName());
+	private static final Logger logger = (Logger) LogManager.getLogger(BitSetBuilder.class.getName());
 
 	// lon - vertical (-180 -> +180) every even round
 	// lat - horizontal [<--->] (-90 -> +90) every odd round

@@ -9,7 +9,7 @@ public class LocationTest {
 	public void testIsSemiContains() {
 		Location loc1 = new Location(0, 0, 1);
 		Location loc2 = new Location(0, 0, 2);
-		DistanceHelp helper = new DistanceHelp(loc1);
+		DistanceBasedUtilty helper = new DistanceBasedUtilty(loc1);
 		Contains contains = helper.isContains(loc2);
 
 		Assert.assertEquals(Contains.SEMI_CONTAINS, contains);
@@ -20,7 +20,7 @@ public class LocationTest {
 		Location loc1 = new Location(0, 0, 2);
 		Location loc2 = new Location(0, 0, 1);
 
-		DistanceHelp helper = new DistanceHelp(loc1);
+		DistanceBasedUtilty helper = new DistanceBasedUtilty(loc1);
 		Contains contains = helper.isContains(loc2);
 
 		Assert.assertEquals(Contains.CONTAINS, contains);

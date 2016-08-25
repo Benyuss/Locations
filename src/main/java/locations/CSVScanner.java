@@ -11,14 +11,14 @@ public class CSVScanner {
 	// Scans CSV files until their last line. Saves data in Tuples (LOOK AT ->
 	// class Tuple) to an ArrayList.
 
-	private ArrayList<Tuple> container;
+	private ArrayList<PairedDataStructure> container;
 	private int lastIndex;
 
-	public Tuple getIteratedContainer(int i) {
+	public PairedDataStructure getIteratedContainer(int i) {
 		return container.get(i);
 	}
 
-	public ArrayList<Tuple> getContainer() {
+	public ArrayList<PairedDataStructure> getContainer() {
 		return container;
 	}
 
@@ -40,10 +40,10 @@ public class CSVScanner {
 																		// than
 																		// FileReader.
 		String[] coordinates;
-		container = new ArrayList<Tuple>();
+		container = new ArrayList<PairedDataStructure>();
 
 		while ((coordinates = scanner.readNext()) != null) {
-			Tuple tuple = new Tuple(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]),
+			PairedDataStructure tuple = new PairedDataStructure(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]),
 					Integer.parseInt(coordinates[2]));
 			container.add(tuple);
 			lastIndex = container.size();

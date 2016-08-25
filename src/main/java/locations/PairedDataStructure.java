@@ -3,11 +3,11 @@ package locations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-public final class Tuple {
+public final class PairedDataStructure {
 	// Pairs 2 coordinates with a radius. Use it to keep the data together and
 	// organized.
 
-	static final Logger logger = (Logger) LogManager.getLogger(Tuple.class.getName());
+	static final Logger logger = (Logger) LogManager.getLogger(PairedDataStructure.class.getName());
 
 	private Double firstCoordinate; // lat
 	private Double secondCoordinate; // lon
@@ -17,27 +17,27 @@ public final class Tuple {
 								// not
 	private double distance; // distance between user-given and parsed location.
 
-	public Tuple() {
+	public PairedDataStructure() {
 		// If we just want to initialize a Tuple but without values.
 	}
 
-	public Tuple(Double first, Double second, int radius) {
-		firstCoordinate = first;
-		secondCoordinate = second;
-		this.radius = radius;
+	public PairedDataStructure(Double first, Double second, int radius) {
+		setFirstCoordinate(first);
+		setSecondCoordinate(second);
+		setRadius(radius);
 	}
 
-	public Tuple(Double first, Double second, int radius, String geohash) {
-		firstCoordinate = first;
-		secondCoordinate = second;
-		this.radius = radius;
+	public PairedDataStructure(Double first, Double second, int radius, String geohash) {
+		setFirstCoordinate(first);
+		setSecondCoordinate(second);
+		setRadius(radius);
 		geoHash = geohash;
 	}
 
-	public Tuple(Double first, Double second, int radius, String geohash, Contains contains, double distance) {
-		firstCoordinate = first;
-		secondCoordinate = second;
-		this.radius = radius;
+	public PairedDataStructure(Double first, Double second, int radius, String geohash, Contains contains, double distance) {
+		setFirstCoordinate(first);
+		setSecondCoordinate(second);
+		setRadius(radius);
 		geoHash = geohash;
 		this.contains = contains;
 		this.distance = distance;
