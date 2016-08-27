@@ -60,7 +60,7 @@ class SpringBootController {
 		return new ModelAndView("redirect:geohash");
 	}
 
-	public static void main(String args[]) throws Exception { // start Spring
+	public static void main(String [] args) throws Exception { // start Spring
 																// server.
 		SpringApplication.run(SpringBootController.class, args);
 	}
