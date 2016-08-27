@@ -46,7 +46,7 @@ public class LocationCalculator {
 			double lat2 = fileInput.getLoc().getLatitude();
 			double lon2 = fileInput.getLoc().getLongitude();
 			int rad2 = fileInput.getLoc().getRadius();
-			
+			System.out.println("fika");
 			logger.info(
 					"Got the following data ->  Lat: " + lat2 + " Lon: " + lon2 + " with " + rad2 + " meter radius");
 
