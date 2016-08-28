@@ -16,8 +16,8 @@ public class LocationCalculator {
 	private static final Logger logger = (Logger) LogManager.getLogger(LocationCalculator.class.getName());
 
 	public String processLoc(double lat, double lon, int rad) {
-		GeoHash geo = null;
-		BitSetBuilder bitset = null;
+		GeoHash geo;
+		BitSetBuilder bitset;
 
 		bitset = new BitSetBuilder(lat, lon, rad);
 		boolean[] bits = bitset.createBitset();
