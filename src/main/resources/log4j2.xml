@@ -11,4 +11,21 @@
       <AppenderRef ref="STDOUT"/>
     </Root>
   </Loggers>
+  
+  <Appenders>
+    <File name="LocationsLog" fileName="/home/wannabeprogrammer/Dokumentumok/logs/locations.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </File>
+    <Async name="Async">
+      <AppenderRef ref="LocationsLog"/>
+    </Async>
+  </Appenders>
+  <Loggers>
+    <Root level="error">
+      <AppenderRef ref="LocationsLog"/>
+    </Root>
+  </Loggers>
+  
 </Configuration>

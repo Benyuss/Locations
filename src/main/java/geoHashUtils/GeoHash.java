@@ -25,9 +25,16 @@ public class GeoHash {
 
 	static class Base32 { // Character table based on Geohash Wiki.
 		private static String stringBase = "0123456789bcdefghjkmnpqrstuvwxyz";
-		private static char Base32array[] = stringBase.toCharArray(); // to get them by value. Value = index. 
+		private static char Base32array[] = stringBase.toCharArray(); // to get
+																		// them
+																		// by
+																		// value.
+																		// Value
+																		// =
+																		// index.
 
-		public static char getBase(int x) { // It's a simple getter. Based on the fact Value = index.
+		public static char getBase(int x) { // It's a simple getter. Based on
+											// the fact Value = index.
 			logger.debug("getBase method got a(n): " + x + " and that's " + Base32array[x]);
 			return Base32array[x];
 		}
