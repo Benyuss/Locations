@@ -27,13 +27,12 @@ public class DataStream {
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
-				// validateFile(file);
 				InputStream inputStream = new ByteArrayInputStream(bytes);
 				scanner.scan(inputStream);
 			} catch (IOException e) {
 				logger.error("Can't parse data. Full stack trace: ", e);
 			}
-		} else {
+		} else { // if no file is selected, that one will be chosen.
 			try {
 				File file1 = new File("coordinates.csv");
 				FileInputStream input = new FileInputStream(file1);

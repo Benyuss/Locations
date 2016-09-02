@@ -15,9 +15,9 @@
 <body>
 <sql:setDataSource var="ds" driver="org.h2.Driver" url="jdbc:h2:mem:locationdb" user="sa" password=""/>
 <sql:query dataSource="${ds}" var="geoItemsList"> SELECT * FROM LOCATIONDB; </sql:query>
-<form:form method="POST" action="/geohash" modelAttribute="formdata" name="formdata">
 	<table align="center">
 		<tr>
+<form:form method="POST" action="/geohash" modelAttribute="formdata" name="formdata">
 			<td>
 				<form:select path="geohash">
 	    			<c:forEach var="geoItem" items="${geoItemsList.rows}">
@@ -28,11 +28,15 @@
 	   			 </form:select>
 	   			 
    			</td>
+		<th> <input type="submit" value="Choose" style="height:30px; width:100px"> </th>
+</form:form>
 		</tr>
 		<tr>
-		<th> <input type="submit" value="Choose" style="height:30px; width:100px"> </th>
+		<form:form action="/geohash">
+		<th> <input type="submit" name="index" value="Back to Index" style="height:30px; width:100px"> </th>
+		</form:form>
 		</tr>
+
 	</table>
-</form:form>
 </body>
 </html>
