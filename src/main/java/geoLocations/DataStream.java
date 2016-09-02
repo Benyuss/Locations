@@ -18,7 +18,7 @@ public class DataStream {
 
 	static final Logger logger = (Logger) LogManager.getLogger(DataStream.class.getName());
 
-	public ArrayList<PairedData> forwardData(MultipartFile file, PairedData userInput) {
+	public ArrayList<PairedData> forwardData(MultipartFile file) {
 
 		CSVScanner scanner = new CSVScanner(); // file data parser. If no file
 												// is selected, it will choose
@@ -42,8 +42,8 @@ public class DataStream {
 				logger.error("Can't parse default csv file. Full stack trace: ", e);
 			}
 		}
-
 		LocationCalculator locationCalc = new LocationCalculator();
-		return locationCalc.calculate(scanner, userInput);
+
+		return locationCalc.fillDBWithCSV(scanner);
 	}
 }

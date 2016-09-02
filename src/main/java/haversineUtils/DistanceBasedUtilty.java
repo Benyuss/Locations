@@ -22,7 +22,8 @@ public class DistanceBasedUtilty {
 
 	}
 
-	public Contains isContains(Location loc) { // open a math book at circles for explanation.
+	public Contains isContains(Location loc) { // open a math book at circles
+												// for explanation.
 
 		double distanceValue = this.distanceTo(loc);
 

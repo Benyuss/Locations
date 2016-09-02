@@ -7,7 +7,7 @@ public class Location {
 	// We'll parse files and get lat-lon-rad values from them. This class and
 	// it's objects is used to store this data.
 	private static final Logger logger = (Logger) LogManager.getLogger(Location.class.getName());
-	
+
 	private Double latitude; // Latitude
 	private Double longitude; // Longitude
 	private int radius; // radius
@@ -15,13 +15,12 @@ public class Location {
 	public Location() {
 		// If we just want to initialize a Location but without values.
 	}
-	
+
 	public Location(Double lat, Double lon, int radius) {
 		setLatitude(lat);
 		setLongitude(lon);
 		setRadius(radius);
 	}
-
 
 	public Double getLatitude() {
 		return latitude;
@@ -31,7 +30,7 @@ public class Location {
 		return longitude;
 	}
 
-	public void setLatitude(double lat) { 
+	public void setLatitude(double lat) {
 		if (lat > -90 && lat < 90) {
 			latitude = lat;
 		} else {
@@ -40,7 +39,7 @@ public class Location {
 		}
 	}
 
-	public void setLongitude(double lon) { 
+	public void setLongitude(double lon) {
 		if (lon >= -180 && lon <= 180) {
 			longitude = lon;
 		} else {
@@ -53,7 +52,7 @@ public class Location {
 		return radius;
 	}
 
-	public void setRadius(int radius) { 
+	public void setRadius(int radius) {
 		if (radius > 0) {
 			this.radius = radius;
 		} else {
