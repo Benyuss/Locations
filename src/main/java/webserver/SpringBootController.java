@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.dom4j.IllegalAddException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dataModels.Location;
 import dataModels.PairedData;
 import geoLocations.DataStream;
 import geoLocations.LocationCalculator;
@@ -60,7 +62,34 @@ class SpringBootController {
 
 		return "redirect:index";
 	}
+	
+	@PostMapping(value = "/custom-input") // Get values from textboxes.
+	public String getUserInput(ModelMap model) {
+		model.put("command", new Location() );
+		return "userinput";
+	}
 
+	@PostMapping(value = "/custom-input", params = "submit")
+	public String customInput (@ModelAttribute("user") Location customInput, ModelMap model ) {
+		LocationCalculator locCalc = new LocationCalculator();
+		String geohash = locCalc.generateGeohash(customInput.getLatitude(), customInput.getLongitude(), customInput.getRadius());
+		
+		if (repository.findOne(geohash)  == null) {
+			repository.save(new LocationDB(customInput.getLatitude(), customInput.getLongitude(), customInput.getRadius(), geohash));
+		}
+		else {
+			new IllegalAddException("Already contains that record."); //TODO ???
+		}
+		
+		return "redirect:index";
+	}
+	
+	@PostMapping(value = "/custom-input", params = "index")
+	public ModelAndView custinput2index() {
+		return new ModelAndView("redirect:index");
+	}
+	
+	
 	@PostMapping(value = "/choose")
 	public String selectrecord(Model model) {
 		model.addAttribute("formdata", new LocationDB());

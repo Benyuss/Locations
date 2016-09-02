@@ -11,11 +11,14 @@ public class Location {
 	private Double latitude; // Latitude
 	private Double longitude; // Longitude
 	private int radius; // radius
-
+	
 	public Location(Double lat, Double lon, int radius) {
 		setLatitude(lat);
 		setLongitude(lon);
 		setRadius(radius);
+	}
+
+	public Location() {
 	}
 
 	public Double getLatitude() {

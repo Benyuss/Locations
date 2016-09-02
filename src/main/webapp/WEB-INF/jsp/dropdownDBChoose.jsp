@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Select a record</title>
+<title>Geohash calculator - Select a record</title>
 </head>
 <body>
 <sql:setDataSource var="ds" driver="org.h2.Driver" url="jdbc:h2:mem:locationdb" user="sa" password=""/>

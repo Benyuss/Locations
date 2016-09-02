@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Geohash Calculator - index</title>
+<title>Geohash Calculator - Index</title>
 </head>
 <body>
 	<table width="100%">
@@ -14,9 +14,14 @@
 		<th><input type="submit" name="index" value="Fill database with a CSV file"> </th>
 	</form:form>
 	
+	<form:form action="/custom-input">
+		<th><input type="submit" name="custom" value="Add custom value to the DB"> </th>
+	</form:form>
+	
 	<form:form action="/choose">
 		<th><input type="submit" name="choose" value="Select record from DB"> </th>
 	</form:form>
+	
 	</table>
 </body>
 </html>
