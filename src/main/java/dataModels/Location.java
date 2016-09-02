@@ -12,10 +12,6 @@ public class Location {
 	private Double longitude; // Longitude
 	private int radius; // radius
 
-	public Location() {
-		// If we just want to initialize a Location but without values.
-	}
-
 	public Location(Double lat, Double lon, int radius) {
 		setLatitude(lat);
 		setLongitude(lon);

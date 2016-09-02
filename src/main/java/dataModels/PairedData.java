@@ -3,8 +3,7 @@ package dataModels;
 import haversineUtils.Contains;
 
 public final class PairedData {
-	// Pairs 2 coordinates with a radius. Use it to keep the data together and
-	// organized
+	// Pairs 2 coordinates with a radius. Use it to keep the data together
 
 	private Location loc;
 	private String geoHash;
@@ -24,8 +23,6 @@ public final class PairedData {
 	public PairedData(Location loc, String geohash) {
 		this.loc = loc;
 		geoHash = geohash;
-		// this.contains = contains;
-		// this.distance = distance;
 	}
 
 	public PairedData(Location loc, String geoHash, Contains contains, double distance) {
@@ -38,7 +35,7 @@ public final class PairedData {
 	public Location getLoc() {
 		return loc;
 	}
-	
+
 	public void setLoc(Location loc) {
 		this.loc = loc;
 	}

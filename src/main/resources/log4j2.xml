@@ -13,7 +13,7 @@
   </Loggers>
   
   <Appenders>
-    <File name="LocationsLog" fileName="/home/wannabeprogrammer/Dokumentumok/logs/locations.log">
+    <File name="LocationsLog" fileName="locations-${date:yyyy-MM-dd}.log">
       <PatternLayout>
         <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>

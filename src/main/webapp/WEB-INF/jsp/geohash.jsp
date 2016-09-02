@@ -30,9 +30,13 @@
 	<table align="center">
 		<tr>
 		<form:form action="/geohash">
-		<th> <input type="submit" name="reset" value="Reset" style="height:30px; width:100px"> </th>
+		<th> <input type="submit" name="index" value="Back to Index" style="height:30px; width:100px"> </th>
+		</form:form>
+		<form:form action="/geohash">
+		<th> <input type="submit" name="reset" value="Delete DB and back to Index" style="height:30px"> </th>
 		</form:form>
 		</tr>
+		
 	</table>
 </body>
 </html>

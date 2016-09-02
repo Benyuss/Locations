@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LocationDBRepository extends CrudRepository<LocationDB, String> {
-	
-//	ArrayList<PairedData> findall () throws SQLException, ClassNotFoundException;
+
 }

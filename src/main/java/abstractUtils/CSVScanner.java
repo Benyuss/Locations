@@ -10,20 +10,13 @@ import com.opencsv.CSVReader;
 import dataModels.Location;
 
 public class CSVScanner {
-	// Scans CSV files until their last line. Saves Data as Location data
-	// dtructures.
+	// Scans CSV files until their last line. Saves Data as Location data structures.
 
-	private ArrayList<Location> container;
+	private ArrayList<Location> container; 
 	private int lastIndex;
 
-	public Location getIteratedContainer(int i) { // we may pass the whole
-													// ArrayList and then save
-													// it in another class
-													// but passing that data
-													// without saving it
-													// everytime is fast as
-													// lighting.
-
+	public Location getIteratedContainer(int i) { //fillDBWithCSV method use that. 
+													//you dont have to save that data every time (in a loop) because of that method.
 		return container.get(i);
 	}
 
@@ -36,17 +29,8 @@ public class CSVScanner {
 	}
 
 	public void scan(InputStream file) throws IOException {
-		CSVReader scanner = new CSVReader(new InputStreamReader(file)); // InputStreamReader
-																		// is
-																		// needed
-																		// because
-																		// it
-																		// gives
-																		// way
-																		// better
-																		// abstraction
-																		// than
-																		// FileReader
+		CSVReader scanner = new CSVReader(new InputStreamReader(file)); //using inputstreamreader because it's more abstract than FileReader
+		
 		String[] coordinates;
 		container = new ArrayList<Location>();
 
