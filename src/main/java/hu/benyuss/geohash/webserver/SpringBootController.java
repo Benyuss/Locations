@@ -1,4 +1,4 @@
-package webserver;
+package hu.benyuss.geohash.webserver;
 
 import java.util.ArrayList;
 
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dataModels.Location;
-import dataModels.PairedData;
-import geoLocations.DataStream;
-import geoLocations.LocationCalculator;
-import webserver.database.LocationDB;
-import webserver.database.LocationDBRepository;
+import hu.benyuss.geohash.dataModels.Location;
+import hu.benyuss.geohash.dataModels.PairedData;
+import hu.benyuss.geohash.geoLocations.DataStream;
+import hu.benyuss.geohash.geoLocations.LocationCalculator;
+import hu.benyuss.geohash.webserver.database.LocationDB;
+import hu.benyuss.geohash.webserver.database.LocationDBRepository;
 
 @Controller
 @EnableJpaRepositories
@@ -34,7 +34,7 @@ import webserver.database.LocationDBRepository;
 class SpringBootController {
 
 	static final Logger logger = (Logger) LogManager.getLogger(SpringBootController.class.getName());
-
+	
 	@GetMapping(value = "/index")
 	public String mappingHelp(ModelMap model) {
 		return "index";
@@ -70,7 +70,7 @@ class SpringBootController {
 	}
 
 	@PostMapping(value = "/custom-input", params = "submit")
-	public String customInput (@ModelAttribute("user") Location customInput, ModelMap model ) {
+	public String customInput (@ModelAttribute("custom") Location customInput, ModelMap model ) {
 		LocationCalculator locCalc = new LocationCalculator();
 		String geohash = locCalc.generateGeohash(customInput.getLatitude(), customInput.getLongitude(), customInput.getRadius());
 		
@@ -78,7 +78,7 @@ class SpringBootController {
 			repository.save(new LocationDB(customInput.getLatitude(), customInput.getLongitude(), customInput.getRadius(), geohash));
 		}
 		else {
-			new IllegalAddException("Already contains that record."); //TODO ???
+			new IllegalArgumentException("Already contains that record.");
 		}
 		
 		return "redirect:index";
@@ -122,7 +122,9 @@ class SpringBootController {
 
 		model.addAttribute("geoItemList", data);
 		model.addAttribute("listSize", data.size());
-
+		
+		model.addAttribute("chosen", loc);
+		
 		return "geohash";
 	}
 	

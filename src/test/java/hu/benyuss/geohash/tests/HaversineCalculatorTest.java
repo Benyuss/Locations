@@ -1,10 +1,10 @@
-package locations;
+package hu.benyuss.geohash.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import haversineUtils.HaversineCalculator;
+import hu.benyuss.geohash.haversineUtils.HaversineCalculator;
 
 public class HaversineCalculatorTest {
 

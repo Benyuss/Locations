@@ -1,17 +1,17 @@
-package geoLocations;
+package hu.benyuss.geohash.geoLocations;
 
 import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import abstractUtils.CSVScanner;
-import dataModels.Location;
-import dataModels.PairedData;
-import geoHashUtils.BitSetBuilder;
-import geoHashUtils.GeoHash;
-import haversineUtils.DistanceBasedUtilty;
-import webserver.database.LocationDB;
+import hu.benyuss.geohash.abstractUtils.CSVScanner;
+import hu.benyuss.geohash.dataModels.Location;
+import hu.benyuss.geohash.dataModels.PairedData;
+import hu.benyuss.geohash.geoHashUtils.BitSetBuilder;
+import hu.benyuss.geohash.geoHashUtils.GeoHash;
+import hu.benyuss.geohash.haversineUtils.DistanceBasedUtilty;
+import hu.benyuss.geohash.webserver.database.LocationDB;
 
 public class LocationCalculator {
 

@@ -1,6 +1,6 @@
-package dataModels;
+package hu.benyuss.geohash.dataModels;
 
-import haversineUtils.Contains;
+import hu.benyuss.geohash.haversineUtils.Contains;
 
 public final class PairedData {
 	// Pairs 2 coordinates with a radius. Use it to keep the data together

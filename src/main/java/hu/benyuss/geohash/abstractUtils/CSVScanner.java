@@ -1,4 +1,4 @@
-package abstractUtils;
+package hu.benyuss.geohash.abstractUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import com.opencsv.CSVReader;
 
-import dataModels.Location;
+import hu.benyuss.geohash.dataModels.Location;
 
 public class CSVScanner {
 	// Scans CSV files until their last line. Saves Data as Location data structures.

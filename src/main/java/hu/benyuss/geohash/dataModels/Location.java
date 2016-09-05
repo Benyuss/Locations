@@ -1,4 +1,4 @@
-package dataModels;
+package hu.benyuss.geohash.dataModels;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;

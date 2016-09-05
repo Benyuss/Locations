@@ -1,11 +1,11 @@
-package locations;
+package hu.benyuss.geohash.tests;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import dataModels.Location;
-import haversineUtils.Contains;
-import haversineUtils.DistanceBasedUtilty;
+import hu.benyuss.geohash.dataModels.Location;
+import hu.benyuss.geohash.haversineUtils.Contains;
+import hu.benyuss.geohash.haversineUtils.DistanceBasedUtilty;
 
 public class LocationTest {
 

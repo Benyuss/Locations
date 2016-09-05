@@ -1,4 +1,4 @@
-package geoLocations;
+package hu.benyuss.geohash.geoLocations;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -11,8 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
-import abstractUtils.CSVScanner;
-import dataModels.PairedData;
+import hu.benyuss.geohash.abstractUtils.CSVScanner;
+import hu.benyuss.geohash.dataModels.PairedData;
 
 public class DataStream {
 

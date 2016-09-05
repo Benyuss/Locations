@@ -17,14 +17,25 @@
 	</tr>
 	<c:forEach var="geoItem" begin="1" end= "${listSize}" items="${geoItemList}" >
 		<tr>
-			<td> <c:out value="${geoItem.loc.latitude}"/> </td>
-			<td> <c:out value="${geoItem.loc.longitude}"/> </td>
-			<td> <c:out value="${geoItem.loc.radius}"/> </td>
-			<td> <c:out value="${geoItem.geoHash}"/> </td>
-			<td> <c:out value="${geoItem.contains}"/> </td>
+			<td width="15%"> <c:out value="${geoItem.loc.latitude}"/> </td>
+			<td width="15%"> <c:out value="${geoItem.loc.longitude}"/> </td>
+			<td width="10%"> <c:out value="${geoItem.loc.radius}"/> </td>
+			<td width="10%"> <c:out value="${geoItem.geoHash}"/> </td>
+			<td width="20%"> <c:out value="${geoItem.contains}"/> </td>
 			<td> <c:out value="${geoItem.distance}"/> </td>
 		</tr>
 		</c:forEach>
+	</table>
+	<h1>Chosen location</h1>
+	<table style="width: 100%" border="1">
+		<tr>
+			<td width="15%"> <c:out value="${chosen.latitude}"/> </td>
+			<td width="15%"> <c:out value="${chosen.longitude}"/> </td>
+			<td width="10%"> <c:out value="${chosen.radius}"/> </td>
+			<td width="10%"> <c:out value="${chosen.geohash}"/> </td>
+			<td style='border-left:none;border-bottom:none;border-top:none' width="20%"> </td>
+			<td style='border-right:none;border-bottom:none;border-top:none'> </td>
+		</tr>
 	</table>
 	<br><br>
 	<table align="center">

@@ -1,4 +1,4 @@
-package webserver.database;
+package hu.benyuss.geohash.webserver.database;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

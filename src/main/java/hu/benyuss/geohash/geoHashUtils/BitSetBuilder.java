@@ -1,9 +1,9 @@
-package geoHashUtils;
+package hu.benyuss.geohash.geoHashUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import dataModels.Location;
+import hu.benyuss.geohash.dataModels.Location;
 
 public class BitSetBuilder extends Location {
 	// Creates a bitset based on Geohash calculating algorithm. It will be

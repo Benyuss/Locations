@@ -13,10 +13,8 @@
   </Loggers>
   
   <Appenders>
-    <File name="LocationsLog" fileName="locations-${date:yyyy-MM-dd}.log">
-      <PatternLayout>
-        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-      </PatternLayout>
+    <File name="LocationsLog" fileName="logs/locations-${date:yyyy-MM-dd}.log">
+      <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
     </File>
     <Async name="Async">
       <AppenderRef ref="LocationsLog"/>

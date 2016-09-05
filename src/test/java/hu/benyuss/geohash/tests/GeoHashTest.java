@@ -1,11 +1,11 @@
-package locations;
+package hu.benyuss.geohash.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import geoHashUtils.BitSetBuilder;
-import geoHashUtils.GeoHash;
+import hu.benyuss.geohash.geoHashUtils.BitSetBuilder;
+import hu.benyuss.geohash.geoHashUtils.GeoHash;
 
 public class GeoHashTest {
 	@Test

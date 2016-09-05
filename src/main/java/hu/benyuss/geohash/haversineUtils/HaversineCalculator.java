@@ -1,4 +1,4 @@
-package haversineUtils;
+package hu.benyuss.geohash.haversineUtils;
 
 public final class HaversineCalculator {
 	// Calculates the Haversine Formula. Look at

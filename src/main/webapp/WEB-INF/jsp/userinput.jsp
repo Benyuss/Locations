@@ -17,9 +17,6 @@
 	
 	<tr> <th align="left" width="20%">Latitude:</th> 
 							<td  width="35%"><form:input type="number" step="any" path="latitude" size="35"/></td> 
-							<form:form action="/geohash">
-								<th> <input type="submit" name="index" value="Back to Index" style="height:25px"> </th>
-							</form:form>
 	</tr>
 	
 	<tr> <th align="left" width="20%">Longitude:</th> 
@@ -27,10 +24,15 @@
 	
 	<tr> <th align="left" width="20%"> Radius:</th> 
 							<td width="35%"><form:input type="number" step="any" path="radius" size="35"/></td>
-						    <td> <input type="submit" name="submit" value="Add record to the database" style="height:25px"/> </td>
+						    <td> <input type="submit" name="submit" value="Add record to the database" style="height:25px; width:100%"/> </td>
 	</tr>
 	
 	</form:form>
+	<tr>
+		<form:form action="/geohash">
+			<th> <input type="submit" name="index" value="Back to Index" style="height:25px; width:100%"> </th>
+		</form:form>
+	</tr>
 </table>
 </body>
 </html>

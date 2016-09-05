@@ -1,6 +1,6 @@
-package haversineUtils;
+package hu.benyuss.geohash.haversineUtils;
 
-import dataModels.Location;
+import hu.benyuss.geohash.dataModels.Location;
 
 public class DistanceBasedUtilty {
 
