@@ -1,5 +1,4 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="locations.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -13,16 +12,14 @@
 <title>Geohash calculator - Select a record</title>
 </head>
 <body>
-<sql:setDataSource var="ds" driver="org.h2.Driver" url="jdbc:h2:mem:locationdb" user="sa" password=""/>
-<sql:query dataSource="${ds}" var="geoItemsList"> SELECT * FROM LOCATIONDB; </sql:query>
 	<table align="center">
 		<tr>
 <form:form method="POST" action="/geohash" modelAttribute="formdata" name="formdata">
 			<td>
 				<form:select path="geohash">
-	    			<c:forEach var="geoItem" items="${geoItemsList.rows}">
+	    			<c:forEach var="geoItem" items="${queryValue}">
 	    				<form:option value="${geoItem.geohash}">
-	    					${geoItem.geoHash}
+	    					${geoItem.geohash}
 	    				 </form:option>
 	   				 </c:forEach>
 	   			 </form:select>

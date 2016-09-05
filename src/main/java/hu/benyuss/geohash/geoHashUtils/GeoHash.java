@@ -7,7 +7,7 @@ public class GeoHash {
 	// It will parse the bitset made by BitSetBuilder class. Look at there for
 	// more info.
 
-	static final Logger logger = (Logger) LogManager.getLogger(GeoHash.class);
+	private static final Logger logger = (Logger) LogManager.getLogger(GeoHash.class);
 
 	boolean[] bitSet;
 	private String geoHash; // Will store the final hash.

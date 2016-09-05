@@ -16,7 +16,7 @@ import hu.benyuss.geohash.dataModels.PairedData;
 
 public class DataStream {
 
-	static final Logger logger = (Logger) LogManager.getLogger(DataStream.class.getName());
+	private static final Logger logger = (Logger) LogManager.getLogger(DataStream.class.getName());
 
 	public ArrayList<PairedData> forwardData(MultipartFile file) {
 
@@ -43,6 +43,14 @@ public class DataStream {
 		}
 		LocationCalculator locationCalc = new LocationCalculator();
 
-		return locationCalc.fillDBWithCSV(scanner);
+		ArrayList<PairedData> resultSet = locationCalc.fillDBWithCSV(scanner);
+		
+		if (resultSet.isEmpty() == false) {
+			return resultSet;
+		}
+		else {
+			throw new IllegalArgumentException("List isn't filled.");
+		}
+		
 	}
 }

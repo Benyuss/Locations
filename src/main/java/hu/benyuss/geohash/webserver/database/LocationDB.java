@@ -2,8 +2,10 @@ package hu.benyuss.geohash.webserver.database;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "locations")
 public class LocationDB {
 
 	static final String JDBC_DRIVER = "org.h2.Driver";

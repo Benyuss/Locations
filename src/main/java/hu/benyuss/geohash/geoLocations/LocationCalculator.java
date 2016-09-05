@@ -66,7 +66,7 @@ public class LocationCalculator {
 		// parse csv file and return it to the sql table
 
 		ArrayList<PairedData> arrayFilledWithPairedData = new ArrayList<PairedData>(); //it will store that parsed data.
-
+		
 		for (int i = 0; i < passedScanner.getContainer().size(); i++) {
 
 			PairedData fileInput = new PairedData(passedScanner.getIteratedContainer(i));
