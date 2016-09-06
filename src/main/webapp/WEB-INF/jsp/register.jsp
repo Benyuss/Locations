@@ -30,11 +30,11 @@
 	</tr>
 	
 	<tr> <th align="left" width="20%">Password:</th> 
-							<td width="35%"><form:input type="text" path="passwordValidator"/></td>
+							<td width="35%"><form:input type="password" path="passwordValidator"/></td>
 	</tr>
 	
 	<tr> <th align="left" width="20%">Repeat password:</th> 
-							<td width="35%"><form:input type="text" path="password"/></td>
+							<td width="35%"><form:input type="password" path="password"/></td>
 	</tr>
 	<tr>					    
 		 <td> <input type="submit" name="createAcc" value="I've checked everything. Create my account!" style="height:25px; width:100%"/> </td>

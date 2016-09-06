@@ -17,7 +17,7 @@
 		</tr>
 		<tr>					
 			<th align="left" width="20%">Password:</th> 
-							<td><form:input type="text" path="password"/></td>
+							<td><form:input type="password" path="password"/></td>
 		</tr>		
 		<tr>		
 			<th><input type="submit" name="login" value="Log in"> </th>

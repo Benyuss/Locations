@@ -1,41 +1,33 @@
-package hu.benyuss.geohash.webserver.database;
+package hu.benyuss.geohash.dataModels;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "users")
-public class UsersDB {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+public class User {
+
+	private static final Logger logger = (Logger) LogManager.getLogger(User.class.getName());
 	
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
 	private String firstName;
 	private String lastName;
-	@Column(unique=true)
 	private String email;
-	@Column(unique=true)
 	private String nickname;
+	private String passwordValidator;
 	private String password;
 
-	public UsersDB() {
+	public User() {
 	}
 	
-	public UsersDB (String first, String last, String mail, String nick, String pw) {
+	public User(String first, String last, String mail, String nick, String pwvalid, String pw) {
 		setFirstName(first);
 		setLastName(last);
 		setEmail(mail);
 		setNickname(nick);
+		setPasswordValidator(pwvalid);
 		setPassword(pw);
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getFirstName() {
@@ -72,6 +64,14 @@ public class UsersDB {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+
+	public String getPasswordValidator() {
+		return passwordValidator;
+	}
+	
+	public void setPasswordValidator(String passwordValidator) {
+		this.passwordValidator = passwordValidator;
+	}
 	
 	public String getPassword() {
 		return password;
@@ -82,3 +82,5 @@ public class UsersDB {
 	}
 	
 }
+
+

@@ -8,11 +8,11 @@ import javax.persistence.Table;
 @Table(name = "locations")
 public class LocationDB {
 
-	static final String JDBC_DRIVER = "org.h2.Driver";
-	static final String DB_URL = "jdbc:h2:mem:locationdb"; //in memory database.
-
-	static final String USER = "sa";
-	static final String PASS = "";
+//	static final String JDBC_DRIVER = "org.h2.Driver";
+//	static final String DB_URL = "jdbc:h2:mem:locationdb"; //in memory database.
+//
+//	static final String USER = "sa";
+//	static final String PASS = "";
 
 	@Id
 	private String geohash;

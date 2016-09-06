@@ -2,6 +2,7 @@ package hu.benyuss.geohash.webserver;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import hu.benyuss.geohash.dataModels.Location;
-import hu.benyuss.geohash.geoLocations.LocationCalculator;
+import hu.benyuss.geohash.dataModels.User;
+import hu.benyuss.geohash.webserver.database.DBUtils;
 import hu.benyuss.geohash.webserver.database.UsersDB;
 import hu.benyuss.geohash.webserver.database.UsersDBRepository;
 
@@ -23,14 +24,14 @@ public class LoginController {
 	
 	@GetMapping(value = "/login")
 	public String loginmain(ModelMap model) {
-		model.put("command", new UsersDB());
+		model.put("command", new User());
 		return "login";
 	}
 	
 	//create a new account
 	@PostMapping(value = "/login", params = "register")
 	public String redir2reg(ModelMap model, @ModelAttribute("formdata") UsersDB user) {
-		model.put("command", new UsersDB());
+		model.put("command", new User());//TODO 
 		return "register";
 	}
 	
@@ -38,25 +39,38 @@ public class LoginController {
 	private UsersDBRepository repository;
 	
 	@PostMapping(value = "/registration")
-	public String register(@ModelAttribute("register") UsersDB user , ModelMap model) {
+	public String register(@ModelAttribute("register") User user , ModelMap model) {
 		
-		repository.save(new UsersDB(user.getNickname(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getEmail()));
+		DBUtils utility = new DBUtils();
+		
+		String hashedPW = utility.encodePW(user.getPassword(), user.getPasswordValidator());
+		
+		UsersDB storedUser = new UsersDB(user.getFirstName(), user.getLastName(), user.getEmail(), user.getNickname() , hashedPW );
+		user = null; //security reasons, marked for GC
+		
+		try {
+		repository.save(storedUser);
+		}
+		catch (Exception e) {
+			logger.error("Unable to register. Username or email already in use.");
+		}
 		
 		return "redirect:login";
 	}
 
 	//login with an existing user
 	@PostMapping(value = "/login", params = "login")
-	public String login(@ModelAttribute("loginform") UsersDB user , ModelMap model) {
+	public String login(@ModelAttribute("loginform") User user , ModelMap model) {
 		
-		UsersDB existingUser = repository.findOne(user.getNickname());
+		UsersDB existingUser = repository.findByNicknameOrEmail(user.getNickname(), user.getEmail());
 		
 		if (existingUser == null) {
 			throw new IllegalArgumentException("There is no existing user with these parameters.");
 		}
 		else {
-			if ( login (user.getPassword(), existingUser.getPassword()) == true) {
-				//TODO
+			DBUtils utils = new DBUtils();
+			if ( utils.login (user.getPassword(), existingUser.getPassword()) == true) {
+				logger.error("welcome");
 			}
 			else {
 				throw new IllegalArgumentException("Entered password is wrong. Try again!");
@@ -67,9 +81,4 @@ public class LoginController {
 		return "redirect:index";
 	}
 	
-	private boolean login (String currentPW, String realPW) {
-		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
-		return passwordEncoder.matches(currentPW, realPW);
-	}
 }
