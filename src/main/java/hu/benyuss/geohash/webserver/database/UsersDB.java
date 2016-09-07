@@ -6,25 +6,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class UsersDB {
 	
-	//TODO @valid hova?
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String firstName;
 	private String lastName;
-	
 	@Column(unique=true)
 	private String email;
-	
 	@Column(unique=true)
 	private String nickname;
-	
 	private String password;
 
 	public UsersDB() {

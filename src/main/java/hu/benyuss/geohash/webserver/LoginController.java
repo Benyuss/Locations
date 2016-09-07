@@ -1,10 +1,11 @@
 package hu.benyuss.geohash.webserver;
 
-import javax.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class LoginController {
 	private UsersDBRepository repository;
 	
 	@PostMapping(value = "/registration")
-	public String register(@ModelAttribute("register") @Valid User user , ModelMap model) {
+	public String register(@ModelAttribute("register") User user , ModelMap model) {
 		
 		DBUtils utility = new DBUtils();
 		
@@ -50,7 +51,7 @@ public class LoginController {
 		try {
 		repository.save(storedUser);
 		}
-		catch (IllegalArgumentException e) {
+		catch (Exception e) {
 			logger.error("Unable to register. Username or email already in use.");
 		}
 		
