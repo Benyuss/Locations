@@ -1,21 +1,30 @@
 package hu.benyuss.geohash.dataModels;
 
-import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.hibernate.validator.constraints.Email;
 
 public class User {
 
 	private static final Logger logger = (Logger) LogManager.getLogger(User.class.getName());
 	
+	@NotNull
 	private String firstName;
+	@NotNull
 	private String lastName;
+	@NotNull
+	@Email
 	private String email;
+	@NotNull
+	@Size (min = 6, max = 100)
 	private String nickname;
+	@NotNull
+	@Size(min = 8, max = 16)
 	private String passwordValidator;
+	@NotNull
 	private String password;
 
 	public User() {

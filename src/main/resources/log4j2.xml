@@ -7,7 +7,7 @@
   </Appenders>
   <Loggers>
     <Logger name="org.apache.log4j.xml" level="info"/>
-    <Root level="info">
+    <Root level="trace">
       <AppenderRef ref="STDOUT"/>
     </Root>
   </Loggers>
@@ -21,7 +21,7 @@
     </Async>
   </Appenders>
   <Loggers>
-    <Root level="error">
+    <Root level="debug">
       <AppenderRef ref="LocationsLog"/>
     </Root>
   </Loggers>
