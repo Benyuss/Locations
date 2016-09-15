@@ -1,11 +1,7 @@
 package hu.benyuss.geohash.dataModels;
 
-import javax.persistence.Id;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class User {
 

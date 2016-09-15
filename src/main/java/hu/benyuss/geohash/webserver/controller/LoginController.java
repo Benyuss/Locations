@@ -1,11 +1,10 @@
-package hu.benyuss.geohash.webserver;
+package hu.benyuss.geohash.webserver.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +24,8 @@ public class LoginController {
 	@GetMapping(value = "/login")
 	public String loginmain(ModelMap model) {
 		model.put("command", new User());
+		DBUtils utility = new DBUtils();
+		
 		return "login";
 	}
 	
@@ -45,7 +46,8 @@ public class LoginController {
 		
 		String hashedPW = utility.encodePW(user.getPassword(), user.getPasswordValidator());
 		
-		UsersDB storedUser = new UsersDB(user.getFirstName(), user.getLastName(), user.getEmail(), user.getNickname() , hashedPW );
+		UsersDB storedUser = new UsersDB(user.getFirstName(), user.getLastName(), user.getEmail(), user.getNickname() , hashedPW);
+		storedUser.addAuth();
 		user = null; //security reasons, marked for GC
 		
 		try {
@@ -70,11 +72,18 @@ public class LoginController {
 		else {
 			DBUtils utils = new DBUtils();
 			if ( utils.login (user.getPassword(), existingUser.getPassword()) == true) {
-				logger.error("welcome");
+				logger.error("welcome " + existingUser.getNickname() + "!");
+//				Authentication auth = new Authentication();
+				
+				//STATE????? TODO
+				
+				SecurityContextHolder.getContext().setAuthentication((Authentication) existingUser);
 			}
 			else {
 				throw new IllegalArgumentException("Entered password is wrong. Try again!");
 			}
+			
+//			AuthenticationManagerBuilder
 			
 		}
 		

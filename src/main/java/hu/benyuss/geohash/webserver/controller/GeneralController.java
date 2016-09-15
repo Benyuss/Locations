@@ -1,4 +1,4 @@
-package hu.benyuss.geohash.webserver;
+package hu.benyuss.geohash.webserver.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -27,8 +24,6 @@ import hu.benyuss.geohash.webserver.database.LocationDB;
 import hu.benyuss.geohash.webserver.database.LocationDBRepository;
 
 @Controller
-@EnableJpaRepositories
-@EnableAutoConfiguration
 public class GeneralController {
 
 	static final Logger logger = (Logger) LogManager.getLogger(GeneralController.class.getName());
